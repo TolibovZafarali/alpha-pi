@@ -2,16 +2,21 @@ package com.example.backend.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 import java.util.List;
 
 @Entity
 @Table(name="user") // Table name in the database
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Primary key
 
+    // User attributes
+
+    @Email
     @Column(nullable = false, unique = true)
     private String email; // User's email
 
@@ -20,6 +25,8 @@ public class User {
 
     @Column(nullable = false)
     private String role; // User's role (e.g., "Business Owner" or "Investor")
+
+    // Relationships
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private BusinessProfile businessProfile; // Business profile for the user
@@ -40,6 +47,8 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
