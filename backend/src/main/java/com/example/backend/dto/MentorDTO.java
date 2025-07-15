@@ -1,41 +1,12 @@
-package com.example.backend.model;
+package com.example.backend.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "mentor")
-public class Mentor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MentorDTO {
     private Long id;
-
-    @Column(nullable = false)
     private String fullName;
-
-    @Column(nullable = false)
     private String email;
-
-    @Column(nullable = false)
     private String phone;
-
-    @Column(nullable = false)
     private boolean isAvailable;
-
-    @Column(nullable = false)
     private String industry; // Industry expertise of the mentor
-
-    // === Constructors ===
-
-    public Mentor() {
-    }
-
-    public Mentor(String fullName, String email, String phone, boolean isAvailable) {
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.isAvailable = isAvailable;
-    }
 
     // === Getters and Setters ===
 
