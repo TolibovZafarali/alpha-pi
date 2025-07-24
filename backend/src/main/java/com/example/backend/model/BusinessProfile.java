@@ -49,7 +49,7 @@ public class BusinessProfile {
 
 
 
-    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "businessProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PotentialLocation> potentialLocations; // List of locations associated with the business profile
 
     @OneToMany(mappedBy = "businessProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
