@@ -11,12 +11,9 @@ public class BusinessProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Primary key for the business profile
 
-
-
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user; // User associated with this business profile
-
 
 
     @Column(nullable = false)
@@ -32,7 +29,6 @@ public class BusinessProfile {
     private String description; // Description of the business
 
 
-
     @Column(nullable = false)
     private String contactName; // Contact person's name
 
@@ -43,14 +39,9 @@ public class BusinessProfile {
     private String contactPhone; // Contact person's phone number
 
 
-
     @Column(nullable = false)
     private boolean isPublished; // Indicates if the business profile is published
 
-
-
-    @OneToMany(mappedBy = "businessProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PotentialLocation> potentialLocations; // List of locations associated with the business profile
 
     @OneToMany(mappedBy = "businessProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<InvestorSavedBusiness> savedByInvestors; // List of investors who have saved this business profile
@@ -153,14 +144,6 @@ public class BusinessProfile {
 
     public void setPublished(boolean published) {
         isPublished = published;
-    }
-
-    public List<PotentialLocation> getPotentialLocations() {
-        return potentialLocations;
-    }
-
-    public void setPotentialLocations(List<PotentialLocation> potentialLocations) {
-        this.potentialLocations = potentialLocations;
     }
 
     public List<InvestorSavedBusiness> getSavedByInvestors() {

@@ -34,9 +34,6 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private InvestorProfile investorProfile; // Investor profile for the user
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Contact> contacts; // List of contacts associated with the user
-
     // Constructors
 
     public User() {
@@ -96,13 +93,5 @@ public class User {
 
     public void setInvestorProfile(InvestorProfile investorProfile) {
         this.investorProfile = investorProfile;
-    }
-
-    public List<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
     }
 }
