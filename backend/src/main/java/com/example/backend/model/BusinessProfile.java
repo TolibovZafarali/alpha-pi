@@ -2,6 +2,8 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -42,6 +44,17 @@ public class BusinessProfile {
     @Column(nullable = false)
     private boolean isPublished; // Indicates if the business profile is published
 
+    @Column(precision = 15, scale = 2)
+    private BigDecimal fundingGoal; // Funding goal for the business, if applicable
+
+    @Column(precision = 15, scale = 2)
+    private BigDecimal currentRevenue; // Current revenue of the business, if applicable
+
+    @Column
+    private LocalDate foundedDate; // Date when the business was founded
+
+    @Column(nullable = false)
+    private boolean isRunning; // Indicates if the business is currently operational
 
     @OneToMany(mappedBy = "businessProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<InvestorSavedBusiness> savedByInvestors; // List of investors who have saved this business profile
@@ -52,7 +65,8 @@ public class BusinessProfile {
     }
 
     public BusinessProfile(User user, String businessName, String industry, String logoUrl, String description,
-                           String contactName, String contactEmail, String contactPhone, boolean isPublished) {
+                           String contactName, String contactEmail, String contactPhone, boolean isPublished, BigDecimal fundingGoal, BigDecimal currentRevenue,
+                           LocalDate foundedDate, boolean isRunning) {
         this.user = user;
         this.businessName = businessName;
         this.industry = industry;
@@ -62,6 +76,10 @@ public class BusinessProfile {
         this.contactEmail = contactEmail;
         this.contactPhone = contactPhone;
         this.isPublished = isPublished;
+        this.fundingGoal = fundingGoal;
+        this.currentRevenue = currentRevenue;
+        this.foundedDate = foundedDate;
+        this.isRunning = isRunning;
     }
 
     // Getters and Setters
@@ -152,5 +170,37 @@ public class BusinessProfile {
 
     public void setSavedByInvestors(List<InvestorSavedBusiness> savedByInvestors) {
         this.savedByInvestors = savedByInvestors;
+    }
+
+    public BigDecimal getFundingGoal() {
+        return fundingGoal;
+    }
+
+    public void setFundingGoal(BigDecimal fundingGoal) {
+        this.fundingGoal = fundingGoal;
+    }
+
+    public BigDecimal getCurrentRevenue() {
+        return currentRevenue;
+    }
+
+    public void setCurrentRevenue(BigDecimal currentRevenue) {
+        this.currentRevenue = currentRevenue;
+    }
+
+    public LocalDate getFoundedDate() {
+        return foundedDate;
+    }
+
+    public void setFoundedDate(LocalDate foundedDate) {
+        this.foundedDate = foundedDate;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }
