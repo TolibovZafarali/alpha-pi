@@ -3,7 +3,7 @@ package com.example.backend.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public class UserLoginDTO {
+public class UserSignUpDTO {
     @Email
     @NotBlank
     private String email;
@@ -11,12 +11,16 @@ public class UserLoginDTO {
     @NotBlank
     private String password;
 
-    // Constructors
-    public UserLoginDTO() {}
+    @NotBlank
+    private String role; // "Business Owner" or "Investor"
 
-    public UserLoginDTO(String email, String password) {
+    // Constructors
+    public UserSignUpDTO() {}
+
+    public UserSignUpDTO(String email, String password, String role) {
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     // Getters and setters...
@@ -25,4 +29,7 @@ public class UserLoginDTO {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

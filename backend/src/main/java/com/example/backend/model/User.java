@@ -4,8 +4,6 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
-import java.util.List;
-
 @Entity
 @Table(name="user") // Table name in the database
 public class User {
