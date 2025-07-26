@@ -3,6 +3,7 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 
 import java.util.List;
 
@@ -37,18 +38,37 @@ public class InvestorProfile {
     @OneToMany(mappedBy = "investorProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<InvestorSavedBusiness> savedBusinesses; // List of businesses saved by the investor
 
+    @Min(0)
+    @Column(nullable = false)
+    private Integer minInvestment; // Minimum investment amount the investor is willing to make
+
+    @Min(0)
+    @Column(nullable = false)
+    private Integer maxInvestment; // Maximum investment amount the investor is willing to make
+
+    @Column(nullable = false)
+    private String state; // State where the investor is located
+
+    @Column
+    private String interests; // Investor's interests or areas of focus for investments
+
     // Constructors
 
     public InvestorProfile() {
     }
 
-    public InvestorProfile(User user, String firstName, String lastName, String photoUrl, String businessEmail, String businessPhone) {
+    public InvestorProfile(User user, String firstName, String lastName, String photoUrl, String businessEmail, String businessPhone
+    , Integer minInvestment, Integer maxInvestment, String state, String interests) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
         this.photoUrl = photoUrl;
         this.businessEmail = businessEmail;
         this.businessPhone = businessPhone;
+        this.minInvestment = minInvestment;
+        this.maxInvestment = maxInvestment;
+        this.state = state;
+        this.interests = interests;
     }
 
     // Getters and Setters
@@ -108,5 +128,45 @@ public class InvestorProfile {
 
     public void setBusinessPhone(String businessPhone) {
         this.businessPhone = businessPhone;
+    }
+
+    public List<InvestorSavedBusiness> getSavedBusinesses() {
+        return savedBusinesses;
+    }
+
+    public void setSavedBusinesses(List<InvestorSavedBusiness> savedBusinesses) {
+        this.savedBusinesses = savedBusinesses;
+    }
+
+    public Integer getMinInvestment() {
+        return minInvestment;
+    }
+
+    public void setMinInvestment(Integer minInvestment) {
+        this.minInvestment = minInvestment;
+    }
+
+    public Integer getMaxInvestment() {
+        return maxInvestment;
+    }
+
+    public void setMaxInvestment(Integer maxInvestment) {
+        this.maxInvestment = maxInvestment;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getInterests() {
+        return interests;
+    }
+
+    public void setInterests(String interests) {
+        this.interests = interests;
     }
 }
