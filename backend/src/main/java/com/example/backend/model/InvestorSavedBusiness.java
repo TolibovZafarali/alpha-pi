@@ -5,37 +5,35 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "investor_saved_businesses")
 public class InvestorSavedBusiness {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Primary key for the saved business record
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "investor_profile_id", nullable = false)
-    private InvestorProfile investorProfile; // Investor who saved the business
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "investor_id")
+    private InvestorProfile investor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "business_profile_id", nullable = false)
-    private BusinessProfile businessProfile; // Business profile that was saved
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "business_id")
+    private BusinessProfile business;
 
     @Column(nullable = false)
-    private LocalDateTime savedAt; // Timestamp when the business was saved
+    private LocalDateTime savedAt = LocalDateTime.now();
 
     // Constructors
-
     public InvestorSavedBusiness() {
     }
 
-    public InvestorSavedBusiness(InvestorProfile investorProfile, BusinessProfile businessProfile, LocalDateTime savedAt) {
-        this.investorProfile = investorProfile;
-        this.businessProfile = businessProfile;
-        this.savedAt = LocalDateTime.now();
+    public InvestorSavedBusiness(Long id, InvestorProfile investor, BusinessProfile business, LocalDateTime savedAt) {
+        this.id = id;
+        this.investor = investor;
+        this.business = business;
+        this.savedAt = savedAt;
     }
 
-    // Getters and Setters
-
+    //Getters and Setters
     public Long getId() {
         return id;
     }
@@ -44,20 +42,20 @@ public class InvestorSavedBusiness {
         this.id = id;
     }
 
-    public InvestorProfile getInvestorProfile() {
-        return investorProfile;
+    public InvestorProfile getInvestor() {
+        return investor;
     }
 
-    public void setInvestorProfile(InvestorProfile investorProfile) {
-        this.investorProfile = investorProfile;
+    public void setInvestor(InvestorProfile investor) {
+        this.investor = investor;
     }
 
-    public BusinessProfile getBusinessProfile() {
-        return businessProfile;
+    public BusinessProfile getBusiness() {
+        return business;
     }
 
-    public void setBusinessProfile(BusinessProfile businessProfile) {
-        this.businessProfile = businessProfile;
+    public void setBusiness(BusinessProfile business) {
+        this.business = business;
     }
 
     public LocalDateTime getSavedAt() {

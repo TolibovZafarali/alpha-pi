@@ -2,76 +2,53 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "business_profile")
 public class BusinessProfile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Primary key for the business profile
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user; // User associated with this business profile
-
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(nullable = false)
-    private String businessName; // Name of the business
+    private String password;
 
-    @Column(nullable = false)
-    private String industry; // Industry of the business
+    private String businessName;
+    private String industry;
+    private String description;
+    private String logoUrl;
 
-    @Column(nullable = false)
-    private String logoUrl; // URL of the business logo
+    private String contactName;
+    private String contactEmail;
+    private String contactPhone;
 
-    @Column(nullable = false)
-    private String description; // Description of the business
+    private Boolean isPublished = false;
+    private Double fundingGoal;
+    private Double currentRevenue;
+    private LocalDate foundedDate;
+    private Boolean isRunning;
 
-
-    @Column(nullable = false)
-    private String contactName; // Contact person's name
-
-    @Column(nullable = false)
-    private String contactEmail; // Contact person's email
-
-    @Column(nullable = false)
-    private String contactPhone; // Contact person's phone number
-
-
-    @Column(nullable = false)
-    private boolean isPublished; // Indicates if the business profile is published
-
-    @Column(precision = 15, scale = 2)
-    private BigDecimal fundingGoal; // Funding goal for the business, if applicable
-
-    @Column(precision = 15, scale = 2)
-    private BigDecimal currentRevenue; // Current revenue of the business, if applicable
-
-    @Column
-    private LocalDate foundedDate; // Date when the business was founded
-
-    @Column(nullable = false)
-    private boolean isRunning; // Indicates if the business is currently operational
-
-    @OneToMany(mappedBy = "businessProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<InvestorSavedBusiness> savedByInvestors; // List of investors who have saved this business profile
+    // Investors who saved this business
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    private List<InvestorSavedBusiness> interestedInvestors;
 
     // Constructors
-
     public BusinessProfile() {
     }
 
-    public BusinessProfile(User user, String businessName, String industry, String logoUrl, String description,
-                           String contactName, String contactEmail, String contactPhone, boolean isPublished, BigDecimal fundingGoal, BigDecimal currentRevenue,
-                           LocalDate foundedDate, boolean isRunning) {
-        this.user = user;
+    public BusinessProfile(Long id, String email, String password, String businessName, String industry, String description, String logoUrl, String contactName, String contactEmail, String contactPhone, Boolean isPublished, Double fundingGoal, Double currentRevenue, LocalDate foundedDate, Boolean isRunning, List<InvestorSavedBusiness> interestedInvestors) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
         this.businessName = businessName;
         this.industry = industry;
-        this.logoUrl = logoUrl;
         this.description = description;
+        this.logoUrl = logoUrl;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
         this.contactPhone = contactPhone;
@@ -80,10 +57,10 @@ public class BusinessProfile {
         this.currentRevenue = currentRevenue;
         this.foundedDate = foundedDate;
         this.isRunning = isRunning;
+        this.interestedInvestors = interestedInvestors;
     }
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
@@ -92,12 +69,20 @@ public class BusinessProfile {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getBusinessName() {
@@ -116,20 +101,20 @@ public class BusinessProfile {
         this.industry = industry;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
-    }
-
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public String getContactName() {
@@ -156,35 +141,27 @@ public class BusinessProfile {
         this.contactPhone = contactPhone;
     }
 
-    public boolean isPublished() {
+    public Boolean getPublished() {
         return isPublished;
     }
 
-    public void setPublished(boolean published) {
+    public void setPublished(Boolean published) {
         isPublished = published;
     }
 
-    public List<InvestorSavedBusiness> getSavedByInvestors() {
-        return savedByInvestors;
-    }
-
-    public void setSavedByInvestors(List<InvestorSavedBusiness> savedByInvestors) {
-        this.savedByInvestors = savedByInvestors;
-    }
-
-    public BigDecimal getFundingGoal() {
+    public Double getFundingGoal() {
         return fundingGoal;
     }
 
-    public void setFundingGoal(BigDecimal fundingGoal) {
+    public void setFundingGoal(Double fundingGoal) {
         this.fundingGoal = fundingGoal;
     }
 
-    public BigDecimal getCurrentRevenue() {
+    public Double getCurrentRevenue() {
         return currentRevenue;
     }
 
-    public void setCurrentRevenue(BigDecimal currentRevenue) {
+    public void setCurrentRevenue(Double currentRevenue) {
         this.currentRevenue = currentRevenue;
     }
 
@@ -196,11 +173,19 @@ public class BusinessProfile {
         this.foundedDate = foundedDate;
     }
 
-    public boolean isRunning() {
+    public Boolean getRunning() {
         return isRunning;
     }
 
-    public void setRunning(boolean running) {
+    public void setRunning(Boolean running) {
         isRunning = running;
+    }
+
+    public List<InvestorSavedBusiness> getInterestedInvestors() {
+        return interestedInvestors;
+    }
+
+    public void setInterestedInvestors(List<InvestorSavedBusiness> interestedInvestors) {
+        this.interestedInvestors = interestedInvestors;
     }
 }
