@@ -7,6 +7,7 @@ public class InvestorSavedBusinessDTO {
     private Long businessId;
     private String businessName;
     private String industry;
+    private String logoUrl;
     private LocalDateTime savedAt;
 
     // Getters and Setters
@@ -40,6 +41,14 @@ public class InvestorSavedBusinessDTO {
 
     public void setIndustry(String industry) {
         this.industry = industry;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public LocalDateTime getSavedAt() {
