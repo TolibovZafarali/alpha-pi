@@ -8,7 +8,6 @@ import com.example.backend.repository.InvestorProfileRepository;
 import com.example.backend.repository.InvestorSavedBusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
