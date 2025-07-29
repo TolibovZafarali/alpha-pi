@@ -3,8 +3,10 @@ package com.example.backend.controller;
 import com.example.backend.dto.BusinessProfileDTO;
 import com.example.backend.dto.InterestedInvestorDTO;
 import com.example.backend.model.BusinessProfile;
+import com.example.backend.model.InvestorProfile;
 import com.example.backend.model.InvestorSavedBusiness;
 import com.example.backend.repository.BusinessProfileRepository;
+import com.example.backend.repository.InvestorProfileRepository;
 import com.example.backend.repository.InvestorSavedBusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class BusinessProfileController {
     private BusinessProfileRepository businessProfileRepository;
 
     @Autowired
+    private InvestorProfileRepository investorProfileRepository;
+
+    @Autowired
     private InvestorSavedBusinessRepository savedBusinessRepository;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -30,7 +35,7 @@ public class BusinessProfileController {
     // SIGN UP
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody BusinessProfile business) {
-        if (businessProfileRepository.findByEmail(business.getEmail()).isPresent()) {
+        if (businessProfileRepository.findByEmail(business.getEmail()).isPresent() || investorProfileRepository.findByEmail(business.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Email already in use");
         }
 

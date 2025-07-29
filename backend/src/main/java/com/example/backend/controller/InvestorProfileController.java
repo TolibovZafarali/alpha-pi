@@ -35,7 +35,7 @@ public class InvestorProfileController {
     // SIGN UP
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody InvestorProfile investor) {
-        if (investorProfileRepository.findByEmail(investor.getEmail()).isPresent()) {
+        if (investorProfileRepository.findByEmail(investor.getEmail()).isPresent() || businessProfileRepository.findByEmail(investor.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Email already in use");
         }
 
