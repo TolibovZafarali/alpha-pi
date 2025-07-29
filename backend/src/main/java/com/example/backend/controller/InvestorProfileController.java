@@ -80,6 +80,7 @@ public class InvestorProfileController {
     }
 
     // GET Investor + Saved Businesses
+    @GetMapping("/{id}")
     public ResponseEntity<?> getInvestorWithSavedBusinesses(@PathVariable Long id) {
         Optional<InvestorProfile> optional = investorProfileRepository.findById(id);
         if (optional.isEmpty()) {
