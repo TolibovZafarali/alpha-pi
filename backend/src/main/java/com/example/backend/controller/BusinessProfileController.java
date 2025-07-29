@@ -71,11 +71,11 @@ public class BusinessProfileController {
         existing.setContactName(updatedData.getContactName());
         existing.setContactEmail(updatedData.getContactEmail());
         existing.setContactPhone(updatedData.getContactPhone());
-        existing.setPublished(updatedData.getPublished());
+        existing.setPublished(updatedData.isPublished());
         existing.setFundingGoal(updatedData.getFundingGoal());
         existing.setCurrentRevenue(updatedData.getCurrentRevenue());
         existing.setFoundedDate(updatedData.getFoundedDate());
-        existing.setRunning(updatedData.getRunning());
+        existing.setRunning(updatedData.isRunning());
 
         businessProfileRepository.save(existing);
         return ResponseEntity.ok("Profile updated");
@@ -113,11 +113,11 @@ public class BusinessProfileController {
         dto.setContactName(profile.getContactName());
         dto.setContactEmail(profile.getContactEmail());
         dto.setContactPhone(profile.getContactPhone());
-        dto.setPublished(profile.getPublished());
+        dto.setPublished(profile.isPublished());
         dto.setFundingGoal(profile.getFundingGoal());
         dto.setCurrentRevenue(profile.getCurrentRevenue());
         dto.setFoundedDate(profile.getFoundedDate());
-        dto.setRunning(profile.getRunning());
+        dto.setRunning(profile.isRunning());
         dto.setInterestedInvestors(interestedInvestors);
 
         return ResponseEntity.ok(dto);
@@ -127,7 +127,7 @@ public class BusinessProfileController {
     public ResponseEntity<List<BusinessProfileDTO>> getAllPublished() {
         List<BusinessProfileDTO> dtoList = new ArrayList<>();
         for (BusinessProfile profile : businessProfileRepository.findAll()) {
-            if (Boolean.TRUE.equals(profile.getPublished())) {
+            if (Boolean.TRUE.equals(profile.isPublished())) {
                 BusinessProfileDTO dto = new BusinessProfileDTO();
                 dto.setId(profile.getId());
                 dto.setEmail(profile.getEmail());

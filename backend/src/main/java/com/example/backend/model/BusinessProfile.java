@@ -141,7 +141,7 @@ public class BusinessProfile {
         this.contactPhone = contactPhone;
     }
 
-    public Boolean getPublished() {
+    public Boolean isPublished() {
         return isPublished;
     }
 
@@ -173,7 +173,7 @@ public class BusinessProfile {
         this.foundedDate = foundedDate;
     }
 
-    public Boolean getRunning() {
+    public Boolean isRunning() {
         return isRunning;
     }
 
