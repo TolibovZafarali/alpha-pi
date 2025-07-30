@@ -1,27 +1,77 @@
+/* ===== RESET & BASE STYLES ===== */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "DM Serif Display", serif;
+  font-style: normal;
+  font-weight: 400;
+  background-color: #fff;
+  color: #111;
 }
 
+/* ===== ROOT STRUCTURE ===== */
 #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* ===== APP CONTAINER ===== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== LAYOUT WRAPPER (Header + Content + Footer) ===== */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== MAIN PAGE CONTENT (stretches between Header and Footer) ===== */
+.page-content {
+  flex: 1;
+  display: flex; /* Enables child pages like Home to use flex centering */
+  flex-direction: column;
+}
+
+/* ===== GLOBAL CONTAINER (for consistent spacing if needed) ===== */
 .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
+/* ===== GLOBAL IMAGE STYLING ===== */
 img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
+/* ===== LINKS (Reset if needed) ===== */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== TYPOGRAPHY ===== */
+p {
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+
+/* Optional: Prevent scroll for specific pages */
+body.no-scroll {
+  overflow: hidden;
+}

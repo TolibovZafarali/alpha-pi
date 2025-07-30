@@ -7,6 +7,7 @@ const Header = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [menuVisible, setMenuVisible] = useState(false);
 
     useEffect(() => {
         const { id, type } = getAuth();
@@ -24,59 +25,72 @@ const Header = () => {
         navigate("/");
     };
 
+    const openMenu = () => {
+        setMenuVisible(true);
+        setMenuOpen(true);
+    }
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+        setTimeout(() => setMenuVisible(false), 300);
+    }
+
     return (
         <header className="header">
             
             {/* Sign Up and Login || Sign Out buttons */}
-            <div className="auth-buttons">
-                {user ? (
-                    <button onClick={handleLogout}>Sign Out</button>
-                ) : (
-                    <>
-                        <NavLink to="/signup" className="auth-link">Sign Up</NavLink>
-                        <NavLink to="/login" className="auth-link">Login</NavLink>
-                    </>
-                )}
+            <div className="header-left">
+                <div className="auth-buttons">
+                    {user ? (
+                        <button onClick={handleLogout}>Sign Out</button>
+                    ) : (
+                        <>
+                            <NavLink to="/signup" className="auth-link">Sign Up</NavLink>
+                            <NavLink to="/login" className="auth-link">Login</NavLink>
+                        </>
+                    )}
+                </div>
             </div>
 
             {/* Logo links to home */}
-            <Link to="/">
+            <Link to="/" className="logo-link">
                 <img src="/alpha-pi-logo.svg" alt="Alpha-Pi Logo" className="logo" />
             </Link>
 
             {/* Navigation Links */}
-            <nav className="topnav">
-                <NavLink to="/" end>Home</NavLink>
-                <NavLink to="/news">News</NavLink>
-                <NavLink to="/contact">Contact</NavLink>
-                <NavLink to="/about">About</NavLink>
-            </nav>
+            <div className="header-right">
+                <nav className="topnav">
+                    <NavLink to="/" end>Home</NavLink>
+                    <NavLink to="/news">News</NavLink>
+                    <NavLink to="/contact">Contact</NavLink>
+                    <NavLink to="/about">About</NavLink>
+                </nav>
+            </div>
 
             {/* Hamburger Menu Icon */}
-            <button className="hamburger" onClick={() => setMenuOpen(true)}>
+            <button className="hamburger" onClick={openMenu}>
                 ☰
             </button>
 
             {/* Mobile Slide-out Menu */}
-            {menuOpen && (
-                <div className="mobile-menu">
-                    <button className="close-btn" onClick={() => setMenuOpen(false)}>×</button>
-                    <nav className="mobile-nav">
-                        <NavLink to="/" end onClick={() => setMenuOpen(false)}>Home</NavLink>
-                        <NavLink to="/news" onClick={() => setMenuOpen(false)}>News</NavLink>
-                        <NavLink to="/contact" onClick={() => setMenuOpen(false)}>Contact</NavLink>
-                        <NavLink to="/about" onClick={() => setMenuOpen(false)}>About</NavLink>
-                    </nav>
-
-                    <div className="separator"></div>
-
+            {menuVisible && (
+                <div className={`mobile-menu ${menuOpen ? 'slide-in' : 'slide-out'}`}>
+                    <div className="mobile-menu-top">
+                        <button className="close-btn" onClick={closeMenu}>×</button>
+                        <nav className="mobile-nav">
+                            <NavLink to="/" end onClick={closeMenu}>Home</NavLink>
+                            <NavLink to="/news" onClick={closeMenu}>News</NavLink>
+                            <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
+                            <NavLink to="/about" onClick={closeMenu}>About</NavLink>
+                        </nav>
+                    </div>
                     <div className="mobile-auth">
                         {user ? (
-                            <button onClick={handleLogout}>Sign Out</button>
+                            <button onClick={() => { handleLogout(); closeMenu(); }}>Sign Out</button>
                         ) : (
                             <>
-                                <NavLink to="/signup" onClick={() => setMenuOpen(false)} className="auth-link">Sign Up</NavLink>
-                                <NavLink to="/login" onClick={() => setMenuOpen(false)} className="auth-link">Login</NavLink>
+                                <NavLink to="/signup" onClick={closeMenu} className="auth-link">Sign Up</NavLink>
+                                <NavLink to="/login" onClick={closeMenu} className="auth-link">Login</NavLink>
                             </>
                         )}
                     </div>

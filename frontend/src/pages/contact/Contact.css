@@ -1,0 +1,118 @@
+/* Main wrapper to fill the screen and center content */
+.contact-us-main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    flex: 1;
+    background-color: #f9f9f9;
+}
+
+/* Contact form card */
+.contact-us {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 3rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  width: 95%;
+  max-width: 500px;
+}
+
+/* Heading */
+.contact-us h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.8rem;
+  text-align: center;
+  font-weight: 500;
+  color: #000;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Labels and inputs */
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+input,
+textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  color: #111;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #111;
+  outline: none;
+  background-color: #fff;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+button[type="submit"] {
+  padding: 0.75rem;
+  border: none;
+  background-color: #111;
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-weight: 500;
+}
+
+button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #000;
+}
+
+.success {
+  color: green;
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Character counter */
+form > p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+  text-align: right;
+}
+
+/* Responsive layout */
+@media (max-width: 480px) {
+  .contact-us {
+    padding: 2rem 1.5rem;
+  }
+}
+
+textarea {
+    font-family: "DM Serif Display", serif;
+    font-style: normal;
+    font-weight: 400;
+}

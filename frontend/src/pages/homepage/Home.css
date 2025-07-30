@@ -1,0 +1,57 @@
+.home-container {
+    flex: 1;
+    width: 100%;
+    background: url('../../assets/building-4.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay-box {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    border-radius: 16px;
+    padding: 4rem 3rem;
+    color: white;
+    text-align: center;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.overlay-box hr {
+    margin: 2rem 0; /* top and bottom space */
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.overlay-box h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.act-on-reality {
+    font-family: "Parisienne", cursive;
+    font-weight: bold;
+}
+
+p {
+    letter-spacing: 0.5px;
+}
+
+.dashboard-btn {
+    padding: 0.75rem 2rem;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    background-color: #f0f0f0;
+}

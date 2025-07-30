@@ -16,6 +16,8 @@ const About = () => {
         </p>
       </section>
 
+        <hr />
+
       <section className="about-section">
         <h1>About Me</h1>
         <p>

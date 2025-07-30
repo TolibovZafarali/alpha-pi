@@ -1,6 +1,220 @@
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
+header.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  padding: 10px 20px;
+  position: relative;
+  color: white;
+  min-height: 70px;
+}
+
+/* Auth Buttons Left */
+.header-left {
+  flex: 1;
+  display: flex;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-link,
+.auth-buttons button {
+  border-radius: 5px;
+  width: 80px;
+  text-align: center;
+  background: transparent;
+  color: white;
+  padding: 6px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.auth-link:hover,
+.auth-buttons button:hover,
+.auth-link.active {
+  background-color: white;
+  color: black;
+}
+
+/* Centered Logo */
+.logo-link {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Nav Right */
+.header-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.topnav {
+  display: flex;
+  gap: 15px;
+}
+
+.topnav a {
+  border-radius: 5px;
+  width: 80px;
+  text-align: center;
+  background: transparent;
+  color: white;
+  padding: 6px 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.topnav a:hover,
+.topnav a.active {
+  background-color: white;
+  color: black;
+}
+
+/* Hamburger Button */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile Slide-Out Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  z-index: 1000;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.slide-in {
+    animation-name: slideIn;
+}
+
+.slide-out {
+    animation-name: slideOut;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideOut {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mobile-nav a {
+    border-radius: 5px;
+    width: 80;
+    text-align: center;
+    background: transparent;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav a:hover,
+.mobile-nav a.active {
+  background-color: white;
+  color: black;
+}
+
+.mobile-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.mobile-auth .auth-link,
+.mobile-auth button {
+  background: transparent;
+  color: white;
+  padding: 6px 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-auth a {
+    border-radius: 8px;
+    width: 100px;
+    text-align: center;
+}
+
+.mobile-auth .auth-link:hover,
+.mobile-auth button:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .topnav,
+  .auth-buttons {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .header-left,
+  .header-right {
+    flex: unset;
+  }
+
+  .logo-link {
+    flex: 1;
+    justify-content: center;
+  }
 }
