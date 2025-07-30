@@ -50,8 +50,13 @@ p {
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease;
+    font-family: "DM Serif Display", serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
 }
 
 .dashboard-btn:hover {
-    background-color: #f0f0f0;
+    background-color: black;
+    color: white
 }

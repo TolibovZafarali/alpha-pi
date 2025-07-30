@@ -7,6 +7,7 @@ import News from './pages/news/News'
 import Contact from './pages/contact/Contact'
 import About from './pages/about/About'
 import Signup from './pages/authpages/Signup'
+import Login from './pages/authpages/Login'
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
                 <Route path='/news' element={<News />} />
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/about' element={<About />} />
+                
                 <Route path='/signup' element={<Signup />} />
+                <Route path='/login' element={<Login />} />
 
                 <Route path='*' element={<Home />} />
               </Routes>
