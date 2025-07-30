@@ -7,11 +7,26 @@ const Home = () => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const auth = getAuth();
-        if (auth.id && auth.type) {
-            setUser(auth)
+        const checkAuth = () => {
+            const auth = getAuth();
+            if (auth.id && auth.type) {
+                setUser(auth);
+            } else {
+                setUser(null);
+            };
+        }
+
+        checkAuth();
+        window.addEventListener("storage", checkAuth);
+        window.addEventListener("authChanged", checkAuth);
+
+        return () => {
+            window.removeEventListener("storage", checkAuth);
+            window.removeEventListener("authChanged", checkAuth);
         }
     }, []);
+
+    const firstName = user?.name?.split(" ")[0];
     
     return (
         <>
@@ -19,10 +34,10 @@ const Home = () => {
                 <div className="overlay-box">
                     {user ? (
                         <>
-                            <h1>Welcome back, {user.name}!</h1>
+                            <h1>Welcome back, {firstName}!</h1>
                             <p>We’re excited to help you connect, invest, and grow your future — one opportunity at a time.</p>
                             <hr />
-                            <Link to={`/${user.type}/dashboard`}>
+                            <Link to={`/${user.type}/${user.id}`}>
                                 <button className="dashboard-btn">Dashboard</button>
                             </Link>
                         </>

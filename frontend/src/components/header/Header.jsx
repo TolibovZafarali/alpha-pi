@@ -10,12 +10,24 @@ const Header = () => {
     const [menuVisible, setMenuVisible] = useState(false);
 
     useEffect(() => {
-        const { id, type } = getAuth();
-        if (id && type) {
-            setUser({ id, type });
-        } else {
-            setUser(null);
+        const loadUser = () => {
+            const { id, type } = getAuth();
+            if (id && type) {
+                setUser({ id, type });
+            } else {
+                setUser(null);
+            };
         }
+
+        loadUser();
+
+        window.addEventListener("storage", loadUser);
+        window.addEventListener("authChanged", loadUser);
+
+        return () => {
+            window.removeEventListener("storage", loadUser);
+            window.removeEventListener("authChanged", loadUser);
+        };
     }, []);
 
     const handleLogout = () => {
@@ -42,7 +54,7 @@ const Header = () => {
             <div className="header-left">
                 <div className="auth-buttons">
                     {user ? (
-                        <button onClick={handleLogout}>Sign Out</button>
+                        <button onClick={handleLogout} className="auth-link">Sign Out</button>
                     ) : (
                         <>
                             <NavLink to="/signup" className="auth-link">Sign Up</NavLink>
@@ -86,7 +98,7 @@ const Header = () => {
                     </div>
                     <div className="mobile-auth">
                         {user ? (
-                            <button onClick={() => { handleLogout(); closeMenu(); }}>Sign Out</button>
+                            <button className="auth-link" onClick={() => { handleLogout(); closeMenu(); }}>Sign Out</button>
                         ) : (
                             <>
                                 <NavLink to="/signup" onClick={closeMenu} className="auth-link">Sign Up</NavLink>

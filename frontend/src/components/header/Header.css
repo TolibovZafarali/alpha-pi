@@ -22,8 +22,10 @@ header.header {
 
 .auth-link,
 .auth-buttons button {
+  border: none;
+  outline: none;
   border-radius: 5px;
-  width: 80px;
+  width: 90px;
   text-align: center;
   background: transparent;
   color: white;
@@ -31,7 +33,9 @@ header.header {
   cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease;
+  font: inherit;
 }
+
 
 .auth-link:hover,
 .auth-buttons button:hover,
@@ -193,6 +197,11 @@ header.header {
 
 .mobile-auth .auth-link:hover,
 .mobile-auth button:hover {
+  background-color: white;
+  color: black;
+}
+
+.auth-link.active {
   background-color: white;
   color: black;
 }
