@@ -4,12 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-    flex: 1;
-    background-color: #f9f9f9;
+  flex: 1;
+  background-color: #f9f9f9;
 }
 
 /* Contact form card */
-.contact-us {
+.contact-us-main .contact-us {
   background-color: white;
   border: 1px solid #ddd;
   padding: 3rem 2.5rem;
@@ -20,7 +20,7 @@
 }
 
 /* Heading */
-.contact-us h1 {
+.contact-us-main .contact-us h1 {
   font-size: 1.8rem;
   margin-bottom: 1.8rem;
   text-align: center;
@@ -29,14 +29,14 @@
 }
 
 /* Form styling */
-form {
+.contact-us-main form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 /* Labels and inputs */
-label {
+.contact-us-main label {
   font-size: 0.9rem;
   font-weight: 500;
   color: #333;
@@ -45,8 +45,8 @@ label {
   gap: 0.4rem;
 }
 
-input,
-textarea {
+.contact-us-main input,
+.contact-us-main textarea {
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -56,19 +56,22 @@ textarea {
   transition: border-color 0.3s;
 }
 
-input:focus,
-textarea:focus {
+.contact-us-main input:focus,
+.contact-us-main textarea:focus {
   border-color: #111;
   outline: none;
   background-color: #fff;
 }
 
-textarea {
+.contact-us-main textarea {
   resize: none;
   height: 100px;
+  font-family: "DM Serif Display", serif;
+  font-style: normal;
+  font-weight: 400;
 }
 
-button[type="submit"] {
+.contact-us-main button[type="submit"] {
   padding: 0.75rem;
   border: none;
   background-color: #111;
@@ -80,24 +83,24 @@ button[type="submit"] {
   font-weight: 500;
 }
 
-button:disabled {
+.contact-us-main button:disabled {
   background-color: #444;
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
+.contact-us-main button:hover:not(:disabled) {
   background-color: #000;
 }
 
-.success {
-  color: green;
+.contact-us-main .success {
+  color: white;
   margin-top: 0.8rem;
   font-size: 0.95rem;
   text-align: center;
 }
 
 /* Character counter */
-form > p {
+.contact-us-main form > p {
   margin: 0;
   font-size: 0.85rem;
   color: #666;
@@ -106,13 +109,7 @@ form > p {
 
 /* Responsive layout */
 @media (max-width: 480px) {
-  .contact-us {
+  .contact-us-main .contact-us {
     padding: 2rem 1.5rem;
   }
-}
-
-textarea {
-    font-family: "DM Serif Display", serif;
-    font-style: normal;
-    font-weight: 400;
 }

@@ -1,0 +1,178 @@
+/* Signup.css */
+
+/* Take full height, center everything */
+.signup-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+  flex: 1;
+  padding: 1rem;
+}
+
+/* The form box */
+.sign-page-div {
+  background-color: #fff;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 450px;
+}
+
+/* Title */
+.sign-page-div h1 {
+  font-size: 1.7rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Role toggle */
+.role-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.role-toggle label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.role-toggle input {
+  margin-right: 0.5rem;
+}
+
+/* Form */
+.signup-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+/* Floating input wrapper */
+.signup-page form .input-wrapper {
+  position: relative;
+  padding-top: 14px;
+}
+
+.signup-page form input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  padding: 6px 0;
+}
+
+.signup-page form input:focus {
+  border-bottom: 1px solid #000;
+}
+
+/* Floating label */
+.signup-page form label.floating-label {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  font-size: 1rem;
+  color: #aaa;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.signup-page form input:focus + .floating-label,
+.signup-page form input:not(:placeholder-shown) + .floating-label {
+  top: 0;
+  font-size: 0.75rem;
+  color: #000;
+}
+
+/* Button */
+.submit-btn {
+  background-color: #000;
+  color: white;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #333;
+}
+
+.submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Error messages */
+.error-message {
+  color: crimson;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.name-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.name-row .input-wrapper {
+  flex: 1;
+}
+
+.role-toggle-switch {
+  position: relative;
+  display: flex;
+  width: 250px;
+  background: #eee;
+  border-radius: 50px;
+  padding: 5px;
+  margin: 0 auto 2rem;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem 0;
+  z-index: 1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.toggle-option.active {
+  color: white;
+}
+
+.toggle-slider {
+  position: absolute;
+  width: 50%;
+  top: 5px;
+  bottom: 5px;
+  background: black;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  z-index: 0;
+}
+
+.toggle-slider.business {
+  left: 5px;
+}
+
+.toggle-slider.investor {
+  left: calc(50% - 5px);
+}
+

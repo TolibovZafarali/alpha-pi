@@ -3,7 +3,6 @@ package com.example.backend.controller;
 import com.example.backend.dto.BusinessProfileDTO;
 import com.example.backend.dto.InterestedInvestorDTO;
 import com.example.backend.model.BusinessProfile;
-import com.example.backend.model.InvestorProfile;
 import com.example.backend.model.InvestorSavedBusiness;
 import com.example.backend.repository.BusinessProfileRepository;
 import com.example.backend.repository.InvestorProfileRepository;
