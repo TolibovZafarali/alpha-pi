@@ -37,7 +37,7 @@ const Home = () => {
                             <h1>Welcome back, {firstName || (user?.type === "business") ? "business owner" : "angel investor"}!</h1>
                             <p>We’re excited to help you connect, invest, and grow your future — one opportunity at a time.</p>
                             <hr />
-                            <Link to={`/${user.type}/${user.id}`}>
+                            <Link to={`/${user.type}/${user.id}/dashboard`}>
                                 <button className="dashboard-btn">Dashboard</button>
                             </Link>
                         </>

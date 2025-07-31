@@ -8,6 +8,7 @@ import Contact from './pages/contact/Contact'
 import About from './pages/about/About'
 import Signup from './pages/authpages/Signup'
 import Login from './pages/authpages/Login'
+import BusinessDashboard from './pages/business/BusinessDashboard'
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
                 
                 <Route path='/signup' element={<Signup />} />
                 <Route path='/login' element={<Login />} />
+
+                <Route path='business/:id/dashboard' element={<BusinessDashboard />} />
 
                 <Route path='*' element={<Home />} />
               </Routes>
