@@ -79,7 +79,6 @@ public class BusinessProfileController {
         existing.setFundingGoal(updatedData.getFundingGoal());
         existing.setCurrentRevenue(updatedData.getCurrentRevenue());
         existing.setFoundedDate(updatedData.getFoundedDate());
-        existing.setRunning(updatedData.isRunning());
 
         businessProfileRepository.save(existing);
         return ResponseEntity.ok("Profile updated");
@@ -121,7 +120,6 @@ public class BusinessProfileController {
         dto.setFundingGoal(profile.getFundingGoal());
         dto.setCurrentRevenue(profile.getCurrentRevenue());
         dto.setFoundedDate(profile.getFoundedDate());
-        dto.setRunning(profile.isRunning());
         dto.setInterestedInvestors(interestedInvestors);
 
         return ResponseEntity.ok(dto);

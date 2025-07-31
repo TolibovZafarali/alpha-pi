@@ -17,7 +17,6 @@ public class BusinessProfileDTO {
     private Double fundingGoal;
     private Double currentRevenue;
     private LocalDate foundedDate;
-    private Boolean isRunning;
 
     private List<InterestedInvestorDTO> interestedInvestors;
 
@@ -124,14 +123,6 @@ public class BusinessProfileDTO {
 
     public void setFoundedDate(LocalDate foundedDate) {
         this.foundedDate = foundedDate;
-    }
-
-    public Boolean getRunning() {
-        return isRunning;
-    }
-
-    public void setRunning(Boolean running) {
-        isRunning = running;
     }
 
     public List<InterestedInvestorDTO> getInterestedInvestors() {

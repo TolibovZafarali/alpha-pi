@@ -31,7 +31,6 @@ public class BusinessProfile {
     private Double fundingGoal;
     private Double currentRevenue;
     private LocalDate foundedDate;
-    private Boolean isRunning;
 
     // Investors who saved this business
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
@@ -41,7 +40,7 @@ public class BusinessProfile {
     public BusinessProfile() {
     }
 
-    public BusinessProfile(Long id, String email, String password, String businessName, String industry, String description, String logoUrl, String contactName, String contactEmail, String contactPhone, Boolean isPublished, Double fundingGoal, Double currentRevenue, LocalDate foundedDate, Boolean isRunning, List<InvestorSavedBusiness> interestedInvestors) {
+    public BusinessProfile(Long id, String email, String password, String businessName, String industry, String description, String logoUrl, String contactName, String contactEmail, String contactPhone, Boolean isPublished, Double fundingGoal, Double currentRevenue, LocalDate foundedDate, List<InvestorSavedBusiness> interestedInvestors) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -56,7 +55,6 @@ public class BusinessProfile {
         this.fundingGoal = fundingGoal;
         this.currentRevenue = currentRevenue;
         this.foundedDate = foundedDate;
-        this.isRunning = isRunning;
         this.interestedInvestors = interestedInvestors;
     }
 
@@ -171,14 +169,6 @@ public class BusinessProfile {
 
     public void setFoundedDate(LocalDate foundedDate) {
         this.foundedDate = foundedDate;
-    }
-
-    public Boolean isRunning() {
-        return isRunning;
-    }
-
-    public void setRunning(Boolean running) {
-        isRunning = running;
     }
 
     public List<InvestorSavedBusiness> getInterestedInvestors() {
