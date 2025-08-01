@@ -70,7 +70,9 @@ public class InvestorProfileController {
 
         InvestorProfile existing = optional.get();
         existing.setContactName(updatedData.getContactName());
+        existing.setContactEmail(updatedData.getContactEmail());
         existing.setContactPhone(updatedData.getContactPhone());
+        existing.setPhotoUrl(updatedData.getPhotoUrl());
         existing.setState(updatedData.getState());
         existing.setInvestmentRange(updatedData.getInvestmentRange());
         existing.setInterests(updatedData.getInterests());
@@ -109,7 +111,9 @@ public class InvestorProfileController {
         profileDTO.setId(investor.getId());
         profileDTO.setEmail(investor.getEmail());
         profileDTO.setContactName(investor.getContactName());
+        profileDTO.setContactEmail(investor.getContactEmail());
         profileDTO.setContactPhone(investor.getContactPhone());
+        profileDTO.setPhotoUrl(investor.getPhotoUrl());
         profileDTO.setState(investor.getState());
         profileDTO.setInvestmentRange(investor.getInvestmentRange());
         profileDTO.setInterests(investor.getInterests());

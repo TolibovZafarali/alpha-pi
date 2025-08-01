@@ -100,7 +100,9 @@ public class BusinessProfileController {
             var investor = saved.getInvestor();
             InterestedInvestorDTO dto = new InterestedInvestorDTO();
             dto.setContactName(investor.getContactName());
+            dto.setContactEmail(investor.getContactEmail());
             dto.setContactPhone(investor.getContactPhone());
+            dto.setPhotoUrl(investor.getPhotoUrl());
             dto.setState(investor.getState());
             interestedInvestors.add(dto);
         }

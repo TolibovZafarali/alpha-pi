@@ -18,8 +18,10 @@ public class InvestorProfile {
     @Column(nullable = false)
     private String password;
 
+    private String contactEmail;
     private String contactName;
     private String contactPhone;
+    private String photoUrl;
     private String state;
     private String investmentRange;
 
@@ -34,12 +36,14 @@ public class InvestorProfile {
     public InvestorProfile() {
     }
 
-    public InvestorProfile(Long id, String email, String password, String contactName, String contactPhone, String state, String investmentRange, String interests, List<InvestorSavedBusiness> savedBusinesses) {
+    public InvestorProfile(Long id, String email, String password, String contactName, String contactEmail, String contactPhone, String photoUrl, String state, String investmentRange, String interests, List<InvestorSavedBusiness> savedBusinesses) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.contactName = contactName;
+        this.contactEmail = contactEmail;
         this.contactPhone = contactPhone;
+        this.photoUrl = photoUrl;
         this.state = state;
         this.investmentRange = investmentRange;
         this.interests = interests;
@@ -79,12 +83,28 @@ public class InvestorProfile {
         this.contactName = contactName;
     }
 
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
     public String getContactPhone() {
         return contactPhone;
     }
 
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getState() {
