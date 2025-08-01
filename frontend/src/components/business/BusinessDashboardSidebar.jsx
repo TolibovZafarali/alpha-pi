@@ -38,26 +38,26 @@ const BusinessDashboardSidebar = ({ isProfileComplete, isPublished, onPublishCha
 
             {activeSidebar === "mentor" && (
                 <div className="sidebar-content">
-                    <MentorAI />
                     <button className="back-btn" onClick={() => setActiveSidebar("menu")}>
                         Back
                     </button>
+                    <MentorAI />
                 </div>
             )}
             {activeSidebar === "messages" && (
                 <div className="sidebar-content">
-                    <Messages />
                     <button className="back-btn" onClick={() => setActiveSidebar("menu")}>
                         Back
                     </button>
+                    <Messages />
                 </div>
             )}
             {activeSidebar === "investors" && (
                 <div className="sidebar-content">
-                    <InterestedInvestors />
                     <button className="back-btn" onClick={() => setActiveSidebar("menu")}>
                         Back
                     </button>
+                    <InterestedInvestors />
                 </div>
             )}
 

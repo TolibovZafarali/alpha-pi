@@ -1,0 +1,287 @@
+/* Container for the full preview block */
+.profile-preview-container {
+  position: relative;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #111;
+}
+
+.profile-preview-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.profile-preview-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 20px;
+}
+
+.char-counter {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+
+/* Business Name centered */
+.business-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+}
+
+/* Info container */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 1rem;
+}
+
+/* Single row: label on top, value bold below */
+.info-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 0.85rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.03rem;
+  margin-bottom: 0.3rem;
+}
+
+.info-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111;
+}
+
+/* Two fields side-by-side: Funding + Revenue */
+.info-row-pair {
+  display: flex;
+  gap: 2rem;
+  padding-right: 200px;
+}
+
+.info-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section divider */
+.profile-preview-container hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1rem 0 1.5rem;
+}
+
+/* Contact Info header */
+.contact-header {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+/* Logo top right */
+.profile-logo-topright {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+}
+
+.profile-logo-topright img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Edit Button bottom right */
+.profile-edit-btn-bottomright {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
+
+.profile-edit-btn-bottomright button {
+  background-color: #000;
+  color: #fff;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.profile-edit-btn-bottomright button:hover {
+  background-color: #222;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+  .info-row-pair {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .profile-logo-topright {
+    top: 0rem;
+    right: 0rem;
+    max-width: 130px;
+    max-height: 130px;
+  }
+
+  .business-name {
+    font-size: 1.6rem;
+  }
+}
+
+/* Form layout */
+.profile-form-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fields-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 2rem 1rem 2rem;
+  background-color: #fff;
+  color: #111;
+}
+
+/* Floating input */
+.input-wrapper {
+  position: relative;
+  padding-top: 10px;
+}
+
+.input-wrapper input,
+.input-wrapper select,
+.input-wrapper textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  padding: 4px 0;
+  font-family: inherit;
+  resize: none;
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus,
+.input-wrapper textarea:focus {
+  border-bottom: 1px solid #000;
+}
+
+.input-wrapper label.floating-label {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  font-size: 1rem;
+  color: #aaa;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.input-wrapper input:focus + .floating-label,
+.input-wrapper input:not(:placeholder-shown) + .floating-label,
+.input-wrapper textarea:focus + .floating-label,
+.input-wrapper textarea:not(:placeholder-shown) + .floating-label,
+.input-wrapper select:focus + .floating-label,
+.input-wrapper select:not(:placeholder-shown) + .floating-label {
+  top: 0;
+  font-size: 0.75rem;
+  color: #000;
+}
+
+/* Character counter (already included) */
+.char-counter {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+/* Special fonts */
+.input-wrapper textarea,
+.input-wrapper input[type="date"] {
+  font-family: "DM Serif Display", serif;
+}
+
+/* Row layout for 2 or 3 fields */
+.row-pair,
+.row-triple {
+  display: flex;
+  gap: 1rem;
+}
+
+.row-pair .input-wrapper,
+.row-triple .input-wrapper {
+  flex: 1;
+}
+
+/* Contact info stays in column */
+.row-triple:last-of-type {
+  flex-direction: column;
+}
+
+.save-btn-bottomright button {
+  background-color: #000;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.save-btn-bottomright button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.save-btn-bottomright button:hover:enabled {
+  background-color: #222;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .row-pair,
+  .row-triple {
+    flex-direction: column;
+  }
+
+  .save-btn-bottomright {
+    position: static;
+    margin-top: 2rem;
+  }
+}
