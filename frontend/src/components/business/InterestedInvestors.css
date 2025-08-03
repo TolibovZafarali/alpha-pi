@@ -1,0 +1,83 @@
+.interested-investors-container {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 1rem;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* For Webkit browsers */
+.interested-investors-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.interested-investors-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.investor-card {
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.04);
+}
+
+.investor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
+}
+
+.investor-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  border: 1px solid #555;
+}
+
+.investor-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 0.3rem 0;
+}
+
+.investor-info {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin: 0.15rem 0;
+  word-break: break-word;
+}
+
+.no-investor-msg {
+  color: #bbb;
+  font-size: 0.85rem;
+  text-align: center;
+  grid-column: 1 / -1;
+  padding-top: 2rem;
+}
+
+.sidebar-toggle-bottom {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid #333;
+  padding-top: 1rem;
+}
+
+.publish-label {
+  font-size: 0.9rem;
+  color: #ccc;
+}

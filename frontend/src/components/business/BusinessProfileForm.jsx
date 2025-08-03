@@ -5,7 +5,7 @@ import industries from "../../data/industries.json"
 import formatCurrency from "../../utils/formatCurrency";
 import "./BusinessProfileForm.css"
 import formatPhoneNumber from "../../utils/getPhoneNumber";
-import isInvestorProfileComplete from "../../utils/isInvestorProfileComplete";
+import isProfileComplete from "../../utils/isProfileComplete";
 
 const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) => {
     // State for all fields required by blueprint class
@@ -71,7 +71,7 @@ const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
     }
 
     // SHOW profile preview, if profile is not in edit mode and profile is complete
-    if (!editMode && isInvestorProfileComplete(profile)) {
+    if (!editMode && isProfileComplete(profile)) {
         return (
             <div className="profile-preview-container">
                 <div className="profile-fields-left">
