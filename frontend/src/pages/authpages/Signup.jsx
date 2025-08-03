@@ -43,7 +43,7 @@ const Signup = () => {
 
             const id = response.data;
             saveAuth(id, role, contactName);
-            navigate(`/${role}/${id}`);
+            navigate(`/${role}/${id}/dashboard`);
         } catch (err) {
             setError(err.response?.data || "Something went wrong.");
         }

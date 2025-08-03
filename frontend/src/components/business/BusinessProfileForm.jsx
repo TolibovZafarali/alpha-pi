@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import BusinessProfileBlueprint from "../../models/BusinessProfileBlueprint";
-import isProfileComplete from "../../utils/isProfileComplete";
+
 import industries from "../../data/industries.json"
 import formatCurrency from "../../utils/formatCurrency";
 import "./BusinessProfileForm.css"
 import formatPhoneNumber from "../../utils/getPhoneNumber";
+import isInvestorProfileComplete from "../../utils/isInvestorProfileComplete";
 
 const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) => {
     // State for all fields required by blueprint class
@@ -70,7 +71,7 @@ const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
     }
 
     // SHOW profile preview, if profile is not in edit mode and profile is complete
-    if (!editMode && isProfileComplete(profile)) {
+    if (!editMode && isInvestorProfileComplete(profile)) {
         return (
             <div className="profile-preview-container">
                 <div className="profile-fields-left">
@@ -123,7 +124,7 @@ const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
                     <img
                         src={profile.logoUrl}
                         alt="Business Logo"
-                        onError={(e) => (e.target.src = "/logo-not-found.svg")}
+                        onError={(e) => (e.target.src = "/not-found.svg")}
                     />
                 </div>
 

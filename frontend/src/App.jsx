@@ -9,6 +9,7 @@ import About from './pages/about/About'
 import Signup from './pages/authpages/Signup'
 import Login from './pages/authpages/Login'
 import BusinessDashboard from './pages/business/BusinessDashboard'
+import InvestorDashboard from './pages/investor/InvestorDashboard'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                 <Route path='/login' element={<Login />} />
 
                 <Route path='business/:id/dashboard' element={<BusinessDashboard />} />
+                <Route path='investor/:id/dashboard' element={<InvestorDashboard />} />
 
                 <Route path='*' element={<Home />} />
               </Routes>

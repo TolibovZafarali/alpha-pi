@@ -23,7 +23,7 @@ const Login = () => {
             const id = businessRes.data;
 
             saveAuth(id, "business", "");
-            navigate(`/business/${id}`);
+            navigate(`/business/${id}/dashboard`);
         } catch {
             // If business login fails, trying investor login
             try {
@@ -31,7 +31,7 @@ const Login = () => {
                 const id = investorRes.data;
                 
                 saveAuth(id, "investor", "");
-                navigate(`/investor/${id}`);
+                navigate(`/investor/${id}/dashboard`);
             } catch {
                 setError("Invalid credentials. Please check your email and password.")
             }
