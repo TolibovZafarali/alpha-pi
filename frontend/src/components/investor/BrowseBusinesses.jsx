@@ -69,9 +69,9 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
                                 </div>
 
                                 <div className="browse-financial-info">
-                                    <div><strong>Funding Goal:</strong> ${formatCurrency(business.fundingGoal?.toLocaleString())}</div>
-                                    <div><strong>Revenue:</strong> ${formatCurrency(business.currentRevenue?.toLocaleString())}</div>
-                                    <div><strong>Founded:</strong> {business.foundedDate}</div>
+                                    <div><strong>Funding Goal: </strong>{formatCurrency(business.fundingGoal)}</div>
+                                    <div><strong>Revenue: </strong>{formatCurrency(business.currentRevenue)}</div>
+                                    <div><strong>Founded: </strong>{business.foundedDate}</div>
                                 </div>
 
                                 <div className="browse-action-buttons">
