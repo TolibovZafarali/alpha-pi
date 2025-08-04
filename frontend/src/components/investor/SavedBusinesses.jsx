@@ -96,7 +96,7 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
                                     onChange={(e) => setMessage(e.target.value)}
                                     rows={4}
                                 />
-                                <button onClick={(handleSend(business))}>Send</button>
+                                <button onClick={() => (handleSend(business))}>Send</button>
                             </div>
                         )}
 
