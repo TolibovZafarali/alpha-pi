@@ -139,6 +139,12 @@ public class BusinessProfileController {
                 dto.setIndustry(profile.getIndustry());
                 dto.setDescription(profile.getDescription());
                 dto.setLogoUrl(profile.getLogoUrl());
+                dto.setContactName(profile.getContactName());
+                dto.setContactEmail(profile.getContactEmail());
+                dto.setContactPhone(profile.getContactPhone());
+                dto.setFundingGoal(profile.getFundingGoal());
+                dto.setCurrentRevenue(profile.getCurrentRevenue());
+                dto.setFoundedDate(profile.getFoundedDate());
                 dtoList.add(dto);
             }
         }
