@@ -1,8 +1,7 @@
 // Save ID and user type
-export const saveAuth = (id, userType, userName) => {
+export const saveAuth = (id, userType) => {
   localStorage.setItem("userId", id);
   localStorage.setItem("userType", userType);
-  localStorage.setItem("userName", userName)
 
   window.dispatchEvent(new Event("authChanged"));
 };
@@ -11,7 +10,6 @@ export const saveAuth = (id, userType, userName) => {
 export const getAuth = () => ({
   id: localStorage.getItem("userId"),
   type: localStorage.getItem("userType"),
-  name: localStorage.getItem("userName")
 });
 
 // Clear on logout

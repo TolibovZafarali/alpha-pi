@@ -74,7 +74,7 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
                             <div className="business-contact-info">
                                 <div>{business.contactName}</div>
                                 <div>{business.contactEmail}</div>
-                                <div>{formatPhoneNumber(business.contactPhone)}</div>
+                                <div>{(business.contactPhone)}</div>
                             </div>
 
                             {/* Action Buttons */}

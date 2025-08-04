@@ -18,8 +18,8 @@ public class InvestorProfile {
     @Column(nullable = false)
     private String password;
 
-    private String contactEmail;
     private String contactName;
+    private String contactEmail;
     private String contactPhone;
     private String photoUrl;
     private String state;

@@ -2,26 +2,38 @@ import { useEffect, useState } from "react";
 import { getAuth } from "../../utils/auth";
 import { getInvestorProfile, updateInvestorProfile } from "../../services/investorService";
 import InvestorProfileForm from "../../components/investor/InvestorProfileForm";
+import InvestorDashboardSidebar from "../../components/investor/InvestorDashboardSidebar";
+import SavedBusinesses from "../../components/investor/SavedBusinesses";
+import BrowseBusinesses from "../../components/investor/BrowseBusinesses";
+import { saveBusiness, unsaveBusiness } from "../../services/savedService";
+import { getAllPublishedBusinesses } from "../../services/businessService";
 
 const InvestorDashboard = () => {
     const { id } = getAuth();
     const [profile, setProfile] = useState(null);
+    const [allBusinesses, setAllBusinesses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sidebarKey, setSidebarKey] = useState(0);
+    const [activeTab, setActiveTab] = useState("saved");
 
     // Fetch profile from the backend
     useEffect(() => {
-        const fetchProfile = async () => {
-            setLoading(true);
-            try {
-                const res = await getInvestorProfile(id);
-                setProfile(res.data);
+        const fetchData = async () => {
+          setLoading(true);
+          try {
+                const [investorRes, businessRes] = await Promise.all([
+                    getInvestorProfile(id),
+                    getAllPublishedBusinesses(),
+                ]);
+                    setProfile(investorRes.data);
+                    setAllBusinesses(businessRes.data);
             } catch (err) {
                 console.error(err);
             }
-            setLoading(false);
+                setLoading(false);
         };
-        fetchProfile();
+    
+        fetchData();
     }, [id]);
 
     //Check if profile is complete
@@ -37,6 +49,40 @@ const InvestorDashboard = () => {
         }
     }
 
+    const handleRemove = async (businessId) => {
+        try {
+            await unsaveBusiness(id, businessId);
+            setProfile((prev) => ({
+                ...prev,
+                savedBusinesses: prev.savedBusinesses.filter((b) => b.id !== businessId),
+            }))
+        } catch (err) {
+            console.error("Failed to unsave business: ", err);
+        }
+    }
+
+    const handleSave = async (businessId) => {
+        try {
+            await saveBusiness(id, businessId);
+            const saved = allBusinesses.find((b) => b.id === businessId);
+            if (!saved) return;
+            setProfile((prev) => ({
+                ...prev,
+                savedBusinesses: [...prev.savedBusinesses, saved],
+            }))
+        } catch (err) {
+            console.error("Failed to save business: ", err)
+        } 
+    }
+
+    // Here, I'm removing already saved business from the browse businesses
+    const availableBusinesses = 
+        profile && profile.savedBusinesses
+            ? allBusinesses.filter(
+                (b) => !profile.savedBusinesses.some((saved) => saved.id === b.id)
+            )
+            : allBusinesses;
+
     if (loading) return <div className="loading">Loading...</div>
 
     return (
@@ -47,6 +93,35 @@ const InvestorDashboard = () => {
                     onSave={handleProfileSave}
                     isEditable={!isProfileComplete}
                 />
+            </div>
+            <div className="dashboard-right">
+                <InvestorDashboardSidebar
+                    key={sidebarKey}
+                    isProfileComplete={isProfileComplete}
+                    isEditable={!isProfileComplete}
+                    onTabChange={setActiveTab}
+                />
+
+                {isProfileComplete && (
+                    <div className="tab-content">
+                        {activeTab === "saved" && (
+                            <SavedBusinesses
+                                savedBusinesses={profile.savedBusinesses || []}
+                                onRemove={handleRemove}
+                                investorName={profile.contactName}
+                                investorEmail={profile.contactEmail}
+                            />
+                        )}
+                    </div>
+                )}
+
+                {activeTab === "browse" && (
+                    <BrowseBusinesses
+                        businesses={availableBusinesses}
+                        investorProfile={profile}
+                        onSave={handleSave}
+                    />
+                )}
             </div>
         </div>
     );

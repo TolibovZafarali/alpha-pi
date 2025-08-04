@@ -69,6 +69,7 @@ const BusinessDashboard = () => {
                     isProfileComplete={isProfileComplete}
                     isPublished={isPublished}
                     onPublishChange={handlePublishChange}
+                    interestedInvestors={profile.interestedInvestors || []}
                 />
             </div>
         </div>

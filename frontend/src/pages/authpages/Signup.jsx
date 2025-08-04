@@ -24,7 +24,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const contactName = getFullName(firstName, lastName);
-        const request = new SignupRequest(email, password);
+        const request = new SignupRequest(email, password, contactName, email);
 
         if (password != confirmPassword) {
             setPasswordMatch(false);
@@ -42,7 +42,7 @@ const Signup = () => {
                 : await signupInvestor(request);
 
             const id = response.data;
-            saveAuth(id, role, contactName);
+            saveAuth(id, role);
             navigate(`/${role}/${id}/dashboard`);
         } catch (err) {
             setError(err.response?.data || "Something went wrong.");

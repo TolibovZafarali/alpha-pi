@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import InvestorProfileBlueprint from "../../models/InvestorProfileBlueprint"
-import isProfileComplete from "../../utils/isProfileComplete";
 import { getMaxInvest, getMinInvest } from "../../utils/getInvestRange";
 import formatPhoneNumber from "../../utils/getPhoneNumber";
 import formatCurrency from "../../utils/formatCurrency";
 import industries from "../../data/industries.json"
 import "./InvestorProfileForm.css"
 import states from "../../data/states.json"
+import isInvestorProfileComplete from "../../utils/isInvestorProfileComplete";
 
 const InvestorProfileForm = ({ profile, onSave, isEditable: parentEditable }) => {
     //State for all fields required by blueprint class
@@ -85,7 +85,7 @@ const InvestorProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
     }
 
     // Show profile preview, if profile is not in edit mode and is complete
-    if (!editMode && isProfileComplete(profile)) {
+    if (!editMode && isInvestorProfileComplete(profile)) {
         return (
             <div className="profile-preview-container">
                 <div className="profile-fields-left">

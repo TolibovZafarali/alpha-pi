@@ -2,19 +2,36 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css"
 import { getAuth } from "../../utils/auth";
+import { getInvestorProfile } from "../../services/investorService";
+import { getBusinessProfile } from "../../services/businessService";
 
 const Home = () => {
+    
     const [user, setUser] = useState(null);
+    const [contactName, setContactName] = useState("");
 
     useEffect(() => {
-        const checkAuth = () => {
+        const checkAuth = async () => {
             const auth = getAuth();
             if (auth.id && auth.type) {
                 setUser(auth);
+
+                try {
+                    if (auth.type === "business") {
+                        const res = await getBusinessProfile(auth.id);
+                        setContactName(res.data.contactName);
+                    } else if (auth.type === "investor") {
+                        const res = await getInvestorProfile(auth.id);
+                        setContactName(res.data.contactName);
+                    }
+                } catch (err) {
+                    console.error("Failed to fetch profile: ", err);
+                }
             } else {
                 setUser(null);
-            };
-        }
+                setContactName("");
+            }
+        };
 
         checkAuth();
         window.addEventListener("storage", checkAuth);
@@ -26,7 +43,7 @@ const Home = () => {
         }
     }, []);
 
-    const firstName = user?.name?.split(" ")[0];
+    const firstName = contactName.split(" ")[0];
     
     return (
         <>
@@ -34,7 +51,7 @@ const Home = () => {
                 <div className="overlay-box">
                     {user ? (
                         <>
-                            <h1>Welcome back, {firstName || (user?.type === "business") ? "business owner" : "angel investor"}!</h1>
+                            <h1>Welcome back, {firstName}!</h1>
                             <p>We’re excited to help you connect, invest, and grow your future — one opportunity at a time.</p>
                             <hr />
                             <Link to={`/${user.type}/${user.id}/dashboard`}>

@@ -101,7 +101,14 @@ public class InvestorProfileController {
             dto.setBusinessId(business.getId());
             dto.setBusinessName(business.getBusinessName());
             dto.setIndustry(business.getIndustry());
+            dto.setDescription(business.getDescription());
             dto.setLogoUrl(business.getLogoUrl());
+            dto.setContactName(business.getContactName());
+            dto.setContactEmail(business.getContactEmail());
+            dto.setContactPhone(business.getContactPhone());
+            dto.setFundingGoal(business.getFundingGoal());
+            dto.setCurrentRevenue(business.getCurrentRevenue());
+            dto.setFoundedDate(business.getFoundedDate());
             dto.setSavedAt(saved.getSavedAt());
             savedDTOs.add(dto);
         }
