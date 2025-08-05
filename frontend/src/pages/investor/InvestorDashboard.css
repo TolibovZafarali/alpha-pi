@@ -25,7 +25,7 @@
 }
 
 @media (max-width: 768px) {
-    .dashboard-container {
+    .investor-dashboard-container {
         flex-direction: column;
         height: auto;
         flex: 1;

@@ -43,7 +43,11 @@ const InvestorDashboard = () => {
     const handleProfileSave = async (updatedProfile) => {
         try {
             await updateInvestorProfile(id, updatedProfile);
-            setProfile(updatedProfile);
+            setProfile(prev => ({
+                ...prev,
+                ...updatedProfile,
+                savedBusinesses: prev?.savedBusinesses || [],
+            }));
             setSidebarKey(prev => prev + 1);
         } catch (err) {
             console.error(err);
@@ -55,7 +59,9 @@ const InvestorDashboard = () => {
             await unsaveBusiness(id, businessId);
             setProfile((prev) => ({
                 ...prev,
-                savedBusinesses: prev.savedBusinesses.filter((b) => b.id !== businessId),
+                savedBusinesses: (prev?.savedBusinesses || []).filter(
+                    (b) => b.id !== businessId
+                ),
             }))
         } catch (err) {
             console.error("Failed to unsave business: ", err);
@@ -69,7 +75,7 @@ const InvestorDashboard = () => {
             if (!saved) return;
             setProfile((prev) => ({
                 ...prev,
-                savedBusinesses: [...prev.savedBusinesses, saved],
+                savedBusinesses: [...prev?.savedBusinesses || [], saved],
             }))
         } catch (err) {
             console.error("Failed to save business: ", err)
