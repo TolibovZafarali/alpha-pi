@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./InvestorDashboardSidebar.css"
 
 const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }) => {
     const [activeTab, setActiveTab] = useState("saved");

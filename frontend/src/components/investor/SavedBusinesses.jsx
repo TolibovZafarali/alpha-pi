@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser"
 import formatPhoneNumber from "../../utils/getPhoneNumber";
+import "./SavedBusinesses.css"
 
 const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmail }) => {
     const [expandedModeId, setExpandedMoreId] = useState(null);

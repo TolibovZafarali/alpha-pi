@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import BrowseFilters from "./BrowseFilters";
 import formatCurrency from "../../utils/formatCurrency";
+import "./BrowseBusinesses.css"
 
 const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
     const [filterBusinesses, setFilterBusinesses] = useState([]);
@@ -47,7 +48,6 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
 
     return (
         <div className="browse-businesses">
-            <BrowseFilters investorProfile={investorProfile} onFilterChange={handleFilterChange} />
 
             <h2 className="browse-header">Browse Startups</h2>
             {filterBusinesses.length === 0 ? (
@@ -55,7 +55,7 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
             ) : (
                 filterBusinesses.map((business) => {
                     const isExpanded = expandedId === business.id;
-
+                    
                     return (
                         <div key={business.id} className="browse-card">
                             <div className="browse-card-top">
@@ -91,6 +91,9 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
                     )
                 })
             )}
+            
+            <BrowseFilters investorProfile={investorProfile} onFilterChange={handleFilterChange} />
+            
         </div>
     );
 }

@@ -7,6 +7,7 @@ import SavedBusinesses from "../../components/investor/SavedBusinesses";
 import BrowseBusinesses from "../../components/investor/BrowseBusinesses";
 import { saveBusiness, unsaveBusiness } from "../../services/savedService";
 import { getAllPublishedBusinesses } from "../../services/businessService";
+import "./InvestorDashboard.css"
 
 const InvestorDashboard = () => {
     const { id } = getAuth();
@@ -86,7 +87,7 @@ const InvestorDashboard = () => {
     if (loading) return <div className="loading">Loading...</div>
 
     return (
-        <div className="dashboard-container">
+        <div className="investor-dashboard-container">
             <div className="dashboard-left">
                 <InvestorProfileForm
                     profile={profile}

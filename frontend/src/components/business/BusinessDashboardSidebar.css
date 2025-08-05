@@ -27,13 +27,6 @@
   flex-direction: column;
 }
 
-.interested-investors-container {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  padding-right: 4px;
-}
-
 /* Make toggle section not scroll */
 .sidebar-toggle-bottom {
   margin-top: auto;

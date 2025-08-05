@@ -1,0 +1,111 @@
+.browse-businesses {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+}
+
+/* Webkit scroll */
+.browse-businesses::-webkit-scrollbar {
+  width: 6px;
+}
+.browse-businesses::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+.browse-header {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  color: #111;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+.browse-card {
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+
+.browse-card-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.browse-logo img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #555;
+}
+
+.browse-name-industry {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.browse-financial-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: #aaa;
+  gap: 0.25rem;
+}
+
+.browse-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.browse-action-buttons button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.browse-action-buttons button:hover {
+  background-color: #fff;
+  color: #111;
+}
+
+.browse-description {
+  margin-top: 1rem;
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border-radius: 10px;
+  color: #eee;
+  animation: expandFade 0.3s ease;
+}
+
+@keyframes expandFade {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}

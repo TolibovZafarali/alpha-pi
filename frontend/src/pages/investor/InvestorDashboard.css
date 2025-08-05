@@ -1,0 +1,39 @@
+.investor-dashboard-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    background-color: #f7f7f7;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.dashboard-left,
+.dashboard-right {
+    flex: 1;
+    min-width: 0;
+    max-width: 50%;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+        height: auto;
+        flex: 1;
+    }
+
+    .dashboard-left,
+    .dashboard-right {
+        max-width: 100%;
+        padding: 1.25rem;
+    }
+}

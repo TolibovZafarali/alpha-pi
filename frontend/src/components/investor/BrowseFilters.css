@@ -1,0 +1,94 @@
+.browse-filters {
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+.browse-filters h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.filter-options-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+/* Custom checkbox style */
+.filter-options-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.filter-options-row input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #888;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.filter-options-row input[type="checkbox"]:checked {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.filter-options-row input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  font-size: 0.8rem;
+  color: #111;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+}
+
+.filter-options-row input[type="checkbox"]:hover {
+  border-color: #fff;
+}
+
+/* Industry dropdown */
+.industry-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.industry-dropdown label {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.industry-dropdown select {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background-color: #222;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.industry-dropdown select:hover {
+  border-color: #fff;
+}

@@ -8,9 +8,7 @@ const BusinessDashboardSidebar = ({ isProfileComplete, isPublished, onPublishCha
         <div className="dashboard-sidebar">
             <h2 className="sidebar-header">Interested Investors</h2>
 
-            <div className="scrollable-investor-list">
-                <InterestedInvestors interestedInvestors={interestedInvestors} />
-            </div>
+            <InterestedInvestors interestedInvestors={interestedInvestors} />
 
             <div className="sidebar-toggle-bottom">
                 <span className="publish-label">Post your profile:</span>

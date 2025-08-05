@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMaxInvest, getMinInvest } from "../../utils/getInvestRange";
 import industries from "../../data/industries.json"
+import "./BrowseFilters.css"
 
 const BrowseFilters = ({ investorProfile, onFilterChange }) => {
     const [activeMainFilter, setActiveMainFilter] = useState("industry");

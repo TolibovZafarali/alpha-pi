@@ -55,7 +55,7 @@ const BusinessDashboard = () => {
     if (loading) return <div className="loading">Loading...</div>
     
     return (
-        <div className="dashboard-container">
+        <div className="business-dashboard-container">
             <div className="dashboard-left">
                 <BusinessProfileForm
                     profile={profile}

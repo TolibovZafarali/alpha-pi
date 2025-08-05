@@ -7,6 +7,7 @@
   padding-right: 4px;
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
+  margin-bottom: 1rem;
 }
 
 /* Webkit scrollbar */
@@ -85,4 +86,27 @@
 .publish-label {
   font-size: 0.9rem;
   color: #ccc;
+}
+
+@media (max-width: 600px) {
+  .investor-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .investor-name {
+    padding-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .investor-details {
+    margin-left: 0;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .investor-info {
+    margin-bottom: 0.25rem;
+  }
 }
