@@ -1,12 +1,12 @@
-# Alpha-Pi
+# About Alpha-Pi
 
 **Alpha-Pi** is a platform that connects small business owners with potential investors. It allows both parties to create profiles, discover opportunities, and communicate directly.
 
-## 🧠 Purpose
+## Purpose
 
 The goal of Alpha-Pi is to make startup investing more accessible and personal. Business owners can showcase their ventures, while investors can browse, filter, and save businesses that match their interests or funding range.
 
-## 🖥️ Frontend
+## Frontend
 
 - Built with **React** and **Vite**
 - Responsive dashboard layouts for both investors and business owners
@@ -14,7 +14,7 @@ The goal of Alpha-Pi is to make startup investing more accessible and personal. 
 - EmailJS integration for investor-to-business contact
 - Clean UI with dark card styles and modern transitions
 
-## 🔧 Backend
+## Backend
 
 - Developed with **Spring Boot**
 - MySQL database
