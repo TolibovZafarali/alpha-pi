@@ -33,7 +33,7 @@ const InvestorDashboard = () => {
             }
                 setLoading(false);
         };
-    
+
         fetchData();
     }, [id]);
 

@@ -7,6 +7,7 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
     const [expandedModeId, setExpandedMoreId] = useState(null);
     const [expandedContactId, setExpandedContactId] = useState(null);
     const [message, setMessage] = useState("");
+    const [statusMessages, setStatusMessages] = useState({});
 
     const handleToggleMore = (id) => {
         setExpandedMoreId(expandedModeId === id ? null : id);
@@ -32,13 +33,19 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
         emailjs
             .send("service_n1xxg5b", "template_ivn8aki", templateParams, "-efmrM26rTZPXQY6D")
             .then(() => {
-                alert("Message sent successfully!");
+                setStatusMessages(prev => ({
+                    ...prev,
+                    [business.id]: "Message sent successfully!"
+                }))
                 setExpandedContactId(null);
                 setMessage("");
             })
             .catch((err) => {
                 console.error("Email error", err);
-                alert("Failed to send message.")
+                setStatusMessages(prev => ({
+                    ...prev,
+                    [business.id]: "Failed to send message. Please try again."
+                }))
             });
     };
 
@@ -96,6 +103,9 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
                                     rows={4}
                                 />
                                 <button onClick={() => (handleSend(business))}>Send</button>
+                                {statusMessages[business.id] && (
+                                    <p className="status-message">{statusMessages[business.id]}</p>
+                                )}
                             </div>
                         )}
 

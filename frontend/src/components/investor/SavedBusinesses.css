@@ -145,3 +145,8 @@
   background-color: #fff;
   color: #111;
 }
+
+.status-message {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
