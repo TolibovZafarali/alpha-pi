@@ -1,5 +1,5 @@
-import { useState } from "react";
-import "./InvestorDashboardSidebar.css"
+import { useState, useEffect } from "react";
+import "./InvestorDashboardSidebar.css";
 
 const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }) => {
     const [activeTab, setActiveTab] = useState("saved");
@@ -10,28 +10,30 @@ const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }
         setActiveTab(tab);
         onTabChange(tab);
     };
-    
+
+    // Ensure toggle is in sync if props reset the view
+    useEffect(() => {
+        if (isDisabled) setActiveTab("saved");
+    }, [isDisabled]);
+
     return (
         <div className="dashboard-sidebar">
-            <h2 className="sidebar-header">Invest in Tomorrow's Success</h2>
+            
 
-            <div className="tab-switcher">
-                <button
-                    className={`tab-button ${activeTab === "saved" ? "active" : ""}
-                    ${isDisabled ? "disabled" : ""}
-                    `}
+            <div className={`tab-toggle-switch ${isDisabled ? "disabled" : ""}`}>
+                <div
+                    className={`toggle-option ${activeTab === "saved" ? "active" : ""}`}
                     onClick={() => handleClick("saved")}
                 >
                     Saved
-                </button>
-                <button
-                    className={`tab-button ${activeTab === "browse" ? "active" : ""}
-                    ${isDisabled ? "disabled" : ""}
-                    `}
+                </div>
+                <div
+                    className={`toggle-option ${activeTab === "browse" ? "active" : ""}`}
                     onClick={() => handleClick("browse")}
                 >
                     Browse
-                </button>
+                </div>
+                <div className={`toggle-slider ${activeTab}`}></div>
             </div>
 
             {isDisabled && (
@@ -43,6 +45,6 @@ const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }
             )}
         </div>
     );
-}
- 
+};
+
 export default InvestorDashboardSidebar;

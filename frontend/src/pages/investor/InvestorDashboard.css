@@ -1,7 +1,7 @@
 .investor-dashboard-container {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: 85vh;
     padding: 1.5rem;
     gap: 1.5rem;
     background-color: #f7f7f7;
@@ -36,4 +36,13 @@
         max-width: 100%;
         padding: 1.25rem;
     }
+}
+
+.sidebar-toggle-bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid #333;
+  padding-top: 1rem;
 }

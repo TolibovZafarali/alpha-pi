@@ -30,7 +30,6 @@ const BrowseFilters = ({ investorProfile, onFilterChange }) => {
     
     return (
         <div className="browse-filters">
-            <h3>Filter by:</h3>
             <div className="filter-options-row">
                 <label>
                     <input
@@ -63,7 +62,6 @@ const BrowseFilters = ({ investorProfile, onFilterChange }) => {
             {/* Industry dropdown only if industry is selected */}
             {activeMainFilter === "industry" && (
                 <div className="industry-dropdown">
-                    <label>Select Industry:</label>
                     <select value={selectedIndustry} onChange={(e) => setSelectedIndustry(e.target.value)}>
                         <option value="All">All</option>
                         {industries.map((industry) => (

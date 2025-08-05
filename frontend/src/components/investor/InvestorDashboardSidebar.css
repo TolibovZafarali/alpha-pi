@@ -1,14 +1,6 @@
 .dashboard-sidebar {
-  padding: 1.5rem;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-height: 100%;
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
-  box-sizing: border-box;
-  border-radius: 16px;
-  background-color: #fff;
 }
 
 .sidebar-header {
@@ -18,18 +10,15 @@
   border-bottom: 1px solid #333;
   padding-bottom: 0.5rem;
   letter-spacing: 0.5px;
-  text-align: center; /* ✅ Centered title */
+  text-align: center;
 }
 
 .tab-switcher {
   display: flex;
   justify-content: space-evenly;
-  gap: 1rem;
-  margin-top: 1rem;
 }
 
 .tab-button {
-  padding: 0.5rem 1.5rem;
   border: 1px solid #111;
   border-radius: 30px;
   background-color: #111;
@@ -61,4 +50,57 @@
   font-size: 0.85rem;
   color: #666;
   text-align: center;
+}
+
+.tab-toggle-switch {
+  position: relative;
+  display: flex;
+  width: 220px;
+  margin: 1.5rem auto;
+  background: #eee;
+  border-radius: 50px;
+  padding: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.tab-toggle-switch.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem 0;
+  z-index: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.toggle-option.active {
+  color: #fff;
+}
+
+.toggle-slider {
+  position: absolute;
+  width: 50%;
+  top: 5px;
+  bottom: 5px;
+  background: #000;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  z-index: 0;
+}
+
+.toggle-slider.saved {
+  left: 5px;
+}
+
+.toggle-slider.browse {
+  left: calc(50% - 5px);
 }

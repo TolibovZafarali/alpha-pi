@@ -102,21 +102,15 @@ const InvestorDashboard = () => {
                 />
             </div>
             <div className="dashboard-right">
-                <InvestorDashboardSidebar
-                    key={sidebarKey}
-                    isProfileComplete={isProfileComplete}
-                    isEditable={!isProfileComplete}
-                    onTabChange={setActiveTab}
-                />
-
+            <h2 className="sidebar-header">Invest in Tomorrow's Success</h2>
                 {isProfileComplete && (
                     <div className="tab-content">
                         {activeTab === "saved" && (
                             <SavedBusinesses
-                                savedBusinesses={profile.savedBusinesses || []}
-                                onRemove={handleRemove}
-                                investorName={profile.contactName}
-                                investorEmail={profile.contactEmail}
+                            savedBusinesses={profile.savedBusinesses || []}
+                            onRemove={handleRemove}
+                            investorName={profile.contactName}
+                            investorEmail={profile.contactEmail}
                             />
                         )}
                     </div>
@@ -124,11 +118,19 @@ const InvestorDashboard = () => {
 
                 {activeTab === "browse" && (
                     <BrowseBusinesses
-                        businesses={availableBusinesses}
-                        investorProfile={profile}
-                        onSave={handleSave}
+                    businesses={availableBusinesses}
+                    investorProfile={profile}
+                    onSave={handleSave}
                     />
                 )}
+                <div className="sidebar-toggle-bottom">
+                    <InvestorDashboardSidebar
+                        key={sidebarKey}
+                        isProfileComplete={isProfileComplete}
+                        isEditable={!isProfileComplete}
+                        onTabChange={setActiveTab}
+                    />
+                </div>
             </div>
         </div>
     );

@@ -48,14 +48,13 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
 
     return (
         <div className="browse-businesses">
-
-            <h2 className="browse-header">Browse Startups</h2>
+            <BrowseFilters investorProfile={investorProfile} onFilterChange={handleFilterChange} />
             {filterBusinesses.length === 0 ? (
                 <p>No businesses match your filters.</p>
             ) : (
                 filterBusinesses.map((business) => {
                     const isExpanded = expandedId === business.id;
-                    
+
                     return (
                         <div key={business.id} className="browse-card">
                             <div className="browse-card-top">
@@ -91,9 +90,6 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
                     )
                 })
             )}
-            
-            <BrowseFilters investorProfile={investorProfile} onFilterChange={handleFilterChange} />
-            
         </div>
     );
 }

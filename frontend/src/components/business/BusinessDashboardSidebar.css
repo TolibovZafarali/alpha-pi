@@ -21,18 +21,7 @@
   text-align: center;
 }
 
-/* Add this to make layout flex vertically and push toggle down */
 .dashboard-sidebar {
   display: flex;
   flex-direction: column;
-}
-
-/* Make toggle section not scroll */
-.sidebar-toggle-bottom {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  border-top: 1px solid #333;
-  padding-top: 1rem;
 }

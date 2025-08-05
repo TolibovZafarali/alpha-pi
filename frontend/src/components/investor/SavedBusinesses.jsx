@@ -45,14 +45,12 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
     if (!savedBusinesses || savedBusinesses.length === 0) {
         return (
             <div className="saved-businesses">
-                <h2 className="saved-header">Your Saved Businesses</h2>
                 <p>No saved businesses yet.</p>
             </div>
         )
     }
     return (
         <div>
-            <h2 className="saved-header">Your Saved Businesses</h2>
             {savedBusinesses.map((business) => {
                 const isMoreOpen = expandedModeId === business.id;
                 const isContactOpen = expandedContactId === business.id;
