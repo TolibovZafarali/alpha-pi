@@ -49,6 +49,7 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
     return (
         <div className="browse-businesses">
             <BrowseFilters investorProfile={investorProfile} onFilterChange={handleFilterChange} />
+            <div className="browse-businesses-list">
             {filterBusinesses.length === 0 ? (
                 <p>No businesses match your filters.</p>
             ) : (
@@ -90,6 +91,7 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
                     )
                 })
             )}
+            </div>
         </div>
     );
 }

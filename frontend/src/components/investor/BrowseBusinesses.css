@@ -2,7 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-height: 70vh;
+}
+
+.browse-businesses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: 30vh;
   overflow-y: auto;
   padding-right: 4px;
   scrollbar-width: thin;
@@ -10,12 +16,20 @@
 }
 
 /* Webkit scroll */
-.browse-businesses::-webkit-scrollbar {
+.browse-businesses-list::-webkit-scrollbar {
   width: 6px;
 }
-.browse-businesses::-webkit-scrollbar-thumb {
+.browse-businesses-list::-webkit-scrollbar-thumb {
   background-color: #555;
   border-radius: 4px;
+}
+
+.browse-industry {
+    color: #aaa;
+}
+
+.browse-name {
+    font-size: larger;
 }
 
 .browse-header {
@@ -45,8 +59,8 @@
 }
 
 .browse-logo img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid #555;

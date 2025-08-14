@@ -82,7 +82,7 @@ const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
                             <div className="info-label">Industry</div>
                             <div className="info-value"><strong>{profile.industry}</strong></div>
                         </div>
-                        <div className="info-row">
+                        <div className="info-row desc">
                             <div className="info-label">Description</div>
                             <div className="info-value"><strong>{profile.description}</strong></div>
                         </div>
@@ -181,7 +181,7 @@ const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
                             onChange={(e) => setDescription(e.target.value)}
                             required
                             placeholder=" "
-                            maxLength={100}
+                            maxLength={140}
                         />
                         <label className="floating-label">Description</label>
                         <p className="char-counter">{description.length}/100</p>

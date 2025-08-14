@@ -24,6 +24,15 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.dashboard-right {
+    justify-content: flex-start;
+}
+
+.tab-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
 @media (max-width: 768px) {
     .investor-dashboard-container {
         flex-direction: column;

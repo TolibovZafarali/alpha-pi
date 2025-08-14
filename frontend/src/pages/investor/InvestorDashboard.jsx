@@ -103,26 +103,23 @@ const InvestorDashboard = () => {
             </div>
             <div className="dashboard-right">
             <h2 className="sidebar-header">Invest in Tomorrow's Success</h2>
-                {isProfileComplete && (
-                    <div className="tab-content">
-                        {activeTab === "saved" && (
-                            <SavedBusinesses
+                <div className="tab-content">
+                    {activeTab === "saved" && isProfileComplete && (
+                        <SavedBusinesses
                             savedBusinesses={profile.savedBusinesses || []}
                             onRemove={handleRemove}
                             investorName={profile.contactName}
                             investorEmail={profile.contactEmail}
                             />
                         )}
+                        {activeTab === "browse" && (
+                            <BrowseBusinesses
+                                businesses={availableBusinesses}
+                                investorProfile={profile}
+                                onSave={handleSave}
+                            />
+                        )}
                     </div>
-                )}
-
-                {activeTab === "browse" && (
-                    <BrowseBusinesses
-                    businesses={availableBusinesses}
-                    investorProfile={profile}
-                    onSave={handleSave}
-                    />
-                )}
                 <div className="sidebar-toggle-bottom">
                     <InvestorDashboardSidebar
                         key={sidebarKey}

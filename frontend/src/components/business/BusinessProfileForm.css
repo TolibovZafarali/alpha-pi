@@ -48,6 +48,10 @@
   flex-direction: column;
 }
 
+.info-row.desc {
+  padding-right: 220px;
+}
+
 .info-label {
   font-size: 0.85rem;
   color: #666;
@@ -149,6 +153,11 @@
 
   .business-name {
     font-size: 1.6rem;
+    padding-right: 200px;
+  }
+
+  .info-row.desc {
+    padding-right: 0;
   }
 }
 

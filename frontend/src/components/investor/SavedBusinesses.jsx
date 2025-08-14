@@ -57,7 +57,7 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
         )
     }
     return (
-        <div>
+        <div className="saved-businesses">
             {savedBusinesses.map((business) => {
                 const isMoreOpen = expandedModeId === business.id;
                 const isContactOpen = expandedContactId === business.id;

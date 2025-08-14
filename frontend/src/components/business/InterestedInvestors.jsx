@@ -5,8 +5,8 @@ const InterestedInvestors = ({ interestedInvestors }) => {
     return (
         <div className="interested-investors-container">
             {interestedInvestors.length > 0 ? (
-                interestedInvestors.map((investor) => (
-                    <div className="investor-card" key={investor.id}>
+                interestedInvestors.map((investor, index) => (
+                    <div key={investor.id || index} className="investor-card">
                         <img
                             className="investor-photo"
                             src={investor.photoUrl}

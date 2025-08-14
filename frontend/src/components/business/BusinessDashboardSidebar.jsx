@@ -10,7 +10,7 @@ const BusinessDashboardSidebar = ({ isProfileComplete, isPublished, onPublishCha
 
             <InterestedInvestors interestedInvestors={interestedInvestors} />
 
-            <div className="sidebar-toggle-bottom">
+            <div className="business-sidebar-toggle-bottom">
                 <span className="publish-label">Post your profile:</span>
                 <PublishToggle
                     checked={isPublished}
