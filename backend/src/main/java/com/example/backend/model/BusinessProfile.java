@@ -12,11 +12,11 @@ public class BusinessProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false,
+        foreignKey = @ForeignKey(name = "fk_business_profile_user")
+    )
+    private User user;
 
     private String businessName;
     private String industry;
@@ -40,10 +40,8 @@ public class BusinessProfile {
     public BusinessProfile() {
     }
 
-    public BusinessProfile(Long id, String email, String password, String businessName, String industry, String description, String logoUrl, String contactName, String contactEmail, String contactPhone, Boolean isPublished, Double fundingGoal, Double currentRevenue, LocalDate foundedDate, List<InvestorSavedBusiness> interestedInvestors) {
+    public BusinessProfile(Long id, String businessName, String industry, String description, String logoUrl, String contactName, String contactEmail, String contactPhone, Boolean isPublished, Double fundingGoal, Double currentRevenue, LocalDate foundedDate, List<InvestorSavedBusiness> interestedInvestors) {
         this.id = id;
-        this.email = email;
-        this.password = password;
         this.businessName = businessName;
         this.industry = industry;
         this.description = description;
@@ -67,20 +65,12 @@ public class BusinessProfile {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getBusinessName() {
