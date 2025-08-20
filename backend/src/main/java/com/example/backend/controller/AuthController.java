@@ -7,6 +7,7 @@ import com.example.backend.model.User;
 import com.example.backend.repository.BusinessProfileRepository;
 import com.example.backend.repository.InvestorProfileRepository;
 import com.example.backend.repository.UserRepository;
+import com.example.backend.security.JwtUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,13 +27,15 @@ public class AuthController {
     private final InvestorProfileRepository investorProfiles;
     private final BCryptPasswordEncoder encoder;
     private final AuthenticationManager authManager;
+    private final JwtUtils jwt;
 
-    public AuthController(UserRepository users, BusinessProfileRepository businessProfiles, InvestorProfileRepository investorProfiles, BCryptPasswordEncoder encoder, AuthenticationManager authManager) {
+    public AuthController(UserRepository users, BusinessProfileRepository businessProfiles, InvestorProfileRepository investorProfiles, BCryptPasswordEncoder encoder, AuthenticationManager authManager, JwtUtils jwt) {
         this.users = users;
         this.businessProfiles = businessProfiles;
         this.investorProfiles = investorProfiles;
         this.encoder = encoder;
         this.authManager = authManager;
+        this.jwt = jwt;
     }
 
     @PostMapping("/signup")
@@ -40,45 +43,36 @@ public class AuthController {
         if (users.existsByEmail(req.email)) {
             return ResponseEntity.badRequest().body("Email already in use");
         }
-
         var u = new User();
         u.setEmail(req.email);
         u.setPasswordHash(encoder.encode(req.password));
-        try {
-            u.setRole(User.Role.valueOf(req.role == null ? "BUSINESS" : req.role.toUpperCase()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Invalid role");
-        }
+        u.setRole(User.Role.valueOf(req.role == null ? "BUSINESS" : req.role.toUpperCase()));
         var saved = users.save(u);
 
-        // seed empty profile for convenience
         switch (saved.getRole()) {
-            case BUSINESS -> {
-                var bp = new BusinessProfile();
-                bp.setUser(saved);
-                bp.setContactName(req.contactName);
-                businessProfiles.save(bp);
-            }
-            case INVESTOR -> {
-                var ip = new InvestorProfile();
-                ip.setUser(saved);
-                ip.setContactName(req.contactName);
-                investorProfiles.save(ip);
-            }
-            default -> {}
+            case BUSINESS -> { var bp = new BusinessProfile(); bp.setUser(saved); businessProfiles.save(bp); }
+            case INVESTOR -> { var ip = new InvestorProfile(); ip.setUser(saved); investorProfiles.save(ip); }
         }
 
-        return ResponseEntity.ok(new AuthDtos.AuthResponse(saved.getId(), saved.getEmail(), saved.getRole().name(), "Signed up"));
+        var accessToken = jwt.issueAccessToken(saved.getId(), saved.getEmail(), saved.getRole().name());
+        return ResponseEntity.ok(new AuthResponseWithToken(saved.getId(), saved.getEmail(), saved.getRole().name(), "Signed up", accessToken));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthDtos.LoginRequest req) {
-        Authentication auth = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(req.email, req.password)
-        );
-
+        Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(req.email, req.password));
         var principal = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
         var user = users.findByEmail(principal.getUsername()).orElseThrow();
-        return ResponseEntity.ok(new AuthDtos.AuthResponse(user.getId(), user.getEmail(), user.getRole().name(), "Logged in"));
+
+        var accessToken = jwt.issueAccessToken(user.getId(), user.getEmail(), user.getRole().name());
+        return ResponseEntity.ok(new AuthResponseWithToken(user.getId(), user.getEmail(), user.getRole().name(), "Logged in", accessToken));
+    }
+
+    public static class AuthResponseWithToken extends AuthDtos.AuthResponse {
+        public String accessToken;
+        public AuthResponseWithToken(Long userId, String email, String role, String message, String accessToken) {
+            super(userId, email, role, message);
+            this.accessToken = accessToken;
+        }
     }
 }
