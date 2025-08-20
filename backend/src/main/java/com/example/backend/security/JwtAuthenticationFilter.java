@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(req, res);
     }
 
-    static class JwtUserAuthentication extends AbstractAuthenticationToken {
+    public static class JwtUserAuthentication extends AbstractAuthenticationToken {
         private final Long userId;
         private final String email;
 
