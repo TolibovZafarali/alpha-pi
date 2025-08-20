@@ -42,7 +42,7 @@ public class BusinessProfileController {
     }
 
     // Fetch the business profile attached to a given user id.
-    @GetMapping("{usedId}")
+    @GetMapping("/{usedId}")
     public ResponseEntity<BusinessProfileDTO> getByUserId(@PathVariable Long userId) {
         Optional<BusinessProfile> bp = businessRepo.findByUserId(userId);
         return bp.map(businessProfile -> ResponseEntity.ok(toDto(businessProfile)))
@@ -51,7 +51,7 @@ public class BusinessProfileController {
 
     // Create (or upsert) a business profile for a user.
     // If a profile already exists for the user, we update it; else we create a new one.
-    @PostMapping("{userId}")
+    @PostMapping("/{userId}")
     public ResponseEntity<BusinessProfileDTO> createOrUpsert(@PathVariable Long userId, @RequestBody BusinessProfileDTO payload) {
         User user = userRepo.findById(userId).orElse(null);
         if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -65,7 +65,7 @@ public class BusinessProfileController {
     }
 
     // Update only the fields of the business profile for a given user id
-    @PutMapping("{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<BusinessProfileDTO> update(@PathVariable Long userId, @RequestBody BusinessProfileDTO payload) {
         Optional<BusinessProfile> existingOpt = businessRepo.findByUserId(userId);
         if (existingOpt.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -77,7 +77,7 @@ public class BusinessProfileController {
     }
 
     // Toggle publish on/off
-    @PatchMapping("{userId}/publish")
+    @PatchMapping("/{userId}/publish")
     public ResponseEntity<BusinessProfileDTO> setPublish(@PathVariable Long userId, @RequestParam("value") boolean value) {
         Optional<BusinessProfile> existingOpt = businessRepo.findByUserId(userId);
         if (existingOpt.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

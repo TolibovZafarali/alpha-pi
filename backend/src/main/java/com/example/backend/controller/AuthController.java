@@ -71,7 +71,7 @@ public class AuthController {
         return ResponseEntity.ok(new AuthDtos.AuthResponse(saved.getId(), saved.getEmail(), saved.getRole().name(), "Signed up"));
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthDtos.LoginRequest req) {
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(req.email, req.password)

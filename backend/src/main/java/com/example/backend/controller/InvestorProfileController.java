@@ -24,7 +24,7 @@ public class InvestorProfileController {
     }
 
     // Fetch the investor profile attached to a given user id
-    @GetMapping("{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<InvestorProfileDTO> getByUserId(@PathVariable Long userId) {
         Optional<InvestorProfile> ip = investorRepo.findByUserId(userId);
         return ip.map(investorProfile -> ResponseEntity.ok(toDto(investorProfile)))
@@ -54,7 +54,7 @@ public class InvestorProfileController {
     }
 
     // Update investor profile by user id
-    @PutMapping("{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<InvestorProfileDTO> update(@PathVariable Long userId, @RequestBody InvestorProfileDTO payload) {
         Optional<InvestorProfile> existingOpt = investorRepo.findByUserId(userId);
         if (existingOpt.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
