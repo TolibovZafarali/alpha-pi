@@ -1,6 +1,7 @@
 package com.example.backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class InvestorProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false,
         foreignKey = @ForeignKey(name = "fk_investor_profile_user")
     )
@@ -30,6 +31,7 @@ public class InvestorProfile {
 
     // List of saved businesses
     @OneToMany(mappedBy = "investor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<InvestorSavedBusiness> savedBusinesses;
 
     // Constructors

@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class BusinessProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false,
         foreignKey = @ForeignKey(name = "fk_business_profile_user")
     )
@@ -34,6 +35,7 @@ public class BusinessProfile {
 
     // Investors who saved this business
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<InvestorSavedBusiness> interestedInvestors;
 
     // Constructors
