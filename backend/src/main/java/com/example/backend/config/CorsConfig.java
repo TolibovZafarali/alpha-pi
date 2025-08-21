@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class CorsConfig {
 
     @Value("${app.cors.allowed-origins:*}")
-    private String allowedOrigins; // comma-separated
+    private String allowedOrigins;
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
