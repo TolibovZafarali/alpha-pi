@@ -61,6 +61,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtils jwt,
+                                           UserRepository users,
                                            AuthenticationEntryPoint json401,
                                            AccessDeniedHandler json403) throws Exception {
         http
@@ -72,7 +73,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**", "/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwt), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwt, users), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
