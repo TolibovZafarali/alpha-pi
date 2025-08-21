@@ -29,7 +29,7 @@ public class JwtUtils {
         this.audience = audience;
     }
 
-    public String issueAccessToken(Long userId, String email, String role) {
+    public String issueAccessToken(Long userId, String email, String role, int tokenVersion) {
         Instant now = Instant.now();
         return Jwts.builder()
                 .issuer(issuer)
@@ -37,6 +37,7 @@ public class JwtUtils {
                 .audience().add(audience).and()
                 .claim("uid", userId)
                 .claim("role", role)
+                .claim("ver", tokenVersion)
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plus(accessTtlMin, ChronoUnit.MINUTES)))
                 .signWith(Keys.hmacShaKeyFor(secretBytes), Jwts.SIG.HS256)

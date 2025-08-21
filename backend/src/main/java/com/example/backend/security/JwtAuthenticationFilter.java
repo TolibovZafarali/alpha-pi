@@ -1,12 +1,13 @@
 package com.example.backend.security;
 
+import com.example.backend.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,26 +21,35 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwt;
+    private final UserRepository userRepo;
 
-    public JwtAuthenticationFilter(JwtUtils jwt) {
+    public JwtAuthenticationFilter(JwtUtils jwt, UserRepository userRepo) {
         this.jwt = jwt;
+        this.userRepo = userRepo;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {
-        String authHeader = req.getHeader(HttpHeaders.AUTHORIZATION);
+        String authHeader = req.getHeader("Authorization");
         if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
+            String token = authHeader.substring(7).trim();
             try {
                 Jws<Claims> jws = jwt.parse(token);
                 Claims c = jws.getPayload();
                 Long userId = c.get("uid", Number.class).longValue();
                 String email = c.getSubject();
                 String role = c.get("role", String.class);
+                Integer verClaim = c.get("ver", Integer.class);
 
-                var auth = new JwtUserAuthentication(userId, email, List.of(new SimpleGrantedAuthority("ROLE_" + role)));
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            } catch (Exception ignored) {}
+                // version check
+                var u = userRepo.findById(userId).orElse(null);
+                if (u == null || verClaim == null || u.getTokenVersion() != verClaim) {
+
+                } else {
+                    var auth = new JwtUserAuthentication(userId, email, List.of(new SimpleGrantedAuthority("ROLE_" + role)));
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                }
+            } catch (JwtException ignored) { }
         }
         chain.doFilter(req, res);
     }
