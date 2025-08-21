@@ -86,7 +86,7 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<?> refresh(@Valid @RequestBody AuthDtos.RefreshRequest req) {
 
-        var anyUser = refreshTokens.validateAndRotate(req.refreshToken, /*expectedUserId*/ 0L);
+        var anyUser = refreshTokens.validateAndRotate(req.refreshToken);
         if (anyUser.isEmpty()) return ResponseEntity.status(401).body("invalid refresh token");
 
         var user = anyUser.get();

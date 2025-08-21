@@ -58,7 +58,7 @@ public class InvestorSavedBusinessController {
         var me = (JwtUserAuthentication) auth;
         var investor = investorRepo.findByUserId(me.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Investor profile not found"));
-        var business = businessRepo.findByUserId(businessId)
+        var business = businessRepo.findById(businessId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Business profile not found"));
         var existing = savedRepo.findByInvestorAndBusiness(investor, business)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Save record not found"));

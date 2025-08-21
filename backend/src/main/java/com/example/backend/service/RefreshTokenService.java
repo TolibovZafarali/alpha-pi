@@ -38,13 +38,12 @@ public class RefreshTokenService {
         return raw; // return the raw to the client once
     }
 
-    public Optional<User> validateAndRotate (String raw, long expectedUserId) {
+    public Optional<User> validateAndRotate (String raw) {
         String hash = hash(raw);
         var opt = repo.findByTokenHash(hash);
         if (opt.isEmpty()) return Optional.empty();
         var token = opt.get();
         if (!token.isActive()) return Optional.empty();
-        if (!token.getUser().getId().equals(expectedUserId)) return Optional.empty();
 
         // revoke old
         token.setRevokedAt(LocalDateTime.now());
