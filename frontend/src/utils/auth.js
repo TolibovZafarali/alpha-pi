@@ -22,7 +22,7 @@ export const setTokens = ({ accessToken, refreshToken }) => {
 export const getAccessToken = () => localStorage.getItem(LS.at) || "";
 export const getRefreshToken = () => localStorage.getItem(LS.rt) || "";
 
-export const getAuth = () = ({
+export const getAuth = () => ({
   id: localStorage.getItem(LS.userId),
   role: localStorage.getItem(LS.role),
   email: localStorage.getItem(LS.email),
