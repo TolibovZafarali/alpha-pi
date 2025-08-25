@@ -3,10 +3,13 @@ package com.example.backend.controller;
 
 import com.example.backend.dto.BusinessProfileDTO;
 import com.example.backend.dto.InvestorProfileDTO;
+import com.example.backend.dto.InvestorSavedBusinessDTO;
 import com.example.backend.model.BusinessProfile;
 import com.example.backend.model.InvestorProfile;
+import com.example.backend.model.InvestorSavedBusiness;
 import com.example.backend.repository.BusinessProfileRepository;
 import com.example.backend.repository.InvestorProfileRepository;
+import com.example.backend.repository.InvestorSavedBusinessRepository;
 import com.example.backend.security.JwtAuthenticationFilter.JwtUserAuthentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +18,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/me")
 public class MeController {
 
     private final BusinessProfileRepository businessRepo;
     private final InvestorProfileRepository investorRepo;
+    private final InvestorSavedBusinessRepository savedRepo;
 
-    public MeController(BusinessProfileRepository businessRepo, InvestorProfileRepository investorRepo) {
+    public MeController(BusinessProfileRepository businessRepo, InvestorProfileRepository investorRepo, InvestorSavedBusinessRepository savedRepo) {
         this.businessRepo = businessRepo;
         this.investorRepo = investorRepo;
+        this.savedRepo = savedRepo;
     }
 
     // === BUSINESS (me) ====
@@ -66,7 +73,10 @@ public class MeController {
         var me = (JwtUserAuthentication) auth;
         var ip = investorRepo.findByUserId(me.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return ResponseEntity.ok(toDto(ip));
+        var saved = savedRepo.findByInvestor(ip);
+        var dto = toDto(ip);
+        dto.setSavedBusinesses(saved.stream().map(this::toDto).collect(Collectors.toList()));
+        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/investor")
@@ -136,5 +146,26 @@ public class MeController {
         if (d.getInterests() != null) e.setInterests(d.getInterests());
         if (d.getInvestmentRange() != null) e.setInvestmentRange(d.getInvestmentRange());
         if (d.getPhotoUrl() != null) e.setPhotoUrl(d.getPhotoUrl());
+    }
+
+    private InvestorSavedBusinessDTO toDto(InvestorSavedBusiness sb) {
+        InvestorSavedBusinessDTO d = new InvestorSavedBusinessDTO();
+        d.setId(sb.getId());
+        var b = sb.getBusiness();
+        if (b != null) {
+            d.setBusinessId(b.getId());
+            d.setBusinessName(b.getBusinessName());
+            d.setIndustry(b.getIndustry());
+            d.setDescription(b.getDescription());
+            d.setLogoUrl(b.getLogoUrl());
+            d.setContactName(b.getContactName());
+            d.setContactEmail(b.getContactEmail());
+            d.setContactPhone(b.getContactPhone());
+            d.setFundingGoal(b.getFundingGoal());
+            d.setCurrentRevenue(b.getCurrentRevenue());
+            d.setFoundedDate(b.getFoundedDate());
+        }
+        d.setSavedAt(sb.getSavedAt());
+        return d;
     }
 }
