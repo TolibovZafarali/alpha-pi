@@ -294,3 +294,21 @@ header.header {
 @media (max-width: 768px) {
   
 }
+
+.profile-group:hover .signout-slide {
+  max-width: 140px;
+  opacity: 1;
+  transform: translateX(0);
+  margin-left: 8px;
+  padding: 6px 12px;
+  pointer-events: auto;
+}
+
+.profile-group.hide-signout .signout-slide {
+  max-width: 0 !important;
+  opacity: 0 !important;
+  transform: translateX(-8px) !important;
+  margin-left: 0 !important;
+  padding: 6px 0 !important;
+  pointer-events: none !important;
+}

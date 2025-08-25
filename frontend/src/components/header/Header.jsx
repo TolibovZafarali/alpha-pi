@@ -53,7 +53,7 @@ const Header = () => {
       <div className="header-left">
         <div className="auth-buttons">
           {user ? (
-            <div className="profile-group" aria-label="Profile actions">
+            <div className={`profile-group ${hideSignout ? "hide-signout" : ""}`} aria-label="Profile actions">
               {dashboardPath && (
                 <NavLink to={dashboardPath} className="auth-link profile-link" onClick={handleProfileClick}>
                   Profile
