@@ -21,7 +21,6 @@ const InvestorDashboard = () => {
       setLoading(true);
       try {
         const [inv, list] = await Promise.all([getMyInvestor(), getAllPublishedBusinesses()]);
-        // backend doesn’t return saved list; keep a local array (will fill on save)
         setProfile({ ...(inv.data || {}), savedBusinesses: inv.data?.savedBusinesses || [] });
         setAllBusinesses(list.data || []);
       } catch (err) {
@@ -31,8 +30,7 @@ const InvestorDashboard = () => {
     };
     fetchData();
   }, []);
-
-  // Profile completeness (same rules you had)
+  
   const isProfileComplete =
     profile &&
     profile.contactName &&

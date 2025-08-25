@@ -68,7 +68,6 @@ const Home = () => {
   return (
     <>
       <div className="home-container">
-        {/* Background video (served from /public/assets) */}
         <video
           className="bg-video"
           ref={videoRef}

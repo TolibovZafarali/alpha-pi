@@ -227,3 +227,70 @@ header.header {
     justify-content: center;
   }
 }
+/* ========= Profile + slide-out Sign Out (desktop) ========= */
+.profile-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Make Profile look like the existing auth-link button */
+.profile-link.auth-link {
+}
+
+/* Start Sign Out hidden & collapsed; reveal on hover/focus-within */
+.signout-slide {
+  /* base look matches .auth-buttons button */
+  background: transparent;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font: inherit;
+  cursor: pointer;
+
+  /* hidden state */
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-8px);
+  margin-left: 0;
+  padding: 6px 0;
+  pointer-events: none;
+
+  /* smooth motion */
+  transition:
+    max-width 220ms ease,
+    opacity 220ms ease,
+    transform 220ms ease,
+    margin-left 220ms ease,
+    padding 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.auth-buttons .signout-slide {
+  width: auto;
+}
+
+/* Reveal on hover/focus-within for accessibility */
+.profile-group:hover .signout-slide,
+.profile-group:focus-within .signout-slide {
+  max-width: 140px;
+  opacity: 1;
+  transform: translateX(0);
+  margin-left: 8px;
+  padding: 6px 12px;
+  pointer-events: auto;
+}
+
+.profile-group:hover .signout-slide:hover,
+.profile-group:focus-within .signout-slide:hover {
+  background-color: rgb(199, 0, 0);
+  color: white;
+}
+
+/* Desktop-only: keep existing mobile behavior */
+@media (max-width: 768px) {
+  
+}
