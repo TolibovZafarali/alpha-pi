@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { clearAuth, getAuth } from "../../utils/auth";
 import "./Header.css"
+import { logout } from "../../services/authService";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -11,9 +12,9 @@ const Header = () => {
 
     useEffect(() => {
         const loadUser = () => {
-            const { id, type } = getAuth();
-            if (id && type) {
-                setUser({ id, type });
+            const { id, role, email } = getAuth();
+            if (id && role) {
+                setUser({ id, role, email });
             } else {
                 setUser(null);
             };
@@ -30,8 +31,12 @@ const Header = () => {
         };
     }, []);
 
-    const handleLogout = () => {
-        clearAuth();
+    const handleLogout = async () => {
+        try {
+            await logout();
+        } catch {
+            // ignore
+        }
         setUser(null);
         setMenuOpen(false);
         navigate("/");
@@ -46,6 +51,10 @@ const Header = () => {
         setMenuOpen(false);
         setTimeout(() => setMenuVisible(false), 300);
     }
+
+    const dashboardPath = user?.role === "BUSINESS" ? "/business/dashboard"
+                        : user?.role === "INVESTOR" ? "/investor/dashboard"
+                        : null;
 
     return (
         <header className="header">
@@ -76,6 +85,9 @@ const Header = () => {
                     <NavLink to="/news">News</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
                     <NavLink to="/about">About</NavLink>
+                    {dashboardPath && (
+                                <NavLink to={dashboardPath}>Dashboard</NavLink>
+                    )}
                 </nav>
             </div>
 
@@ -94,6 +106,9 @@ const Header = () => {
                             <NavLink to="/news" onClick={closeMenu}>News</NavLink>
                             <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
                             <NavLink to="/about" onClick={closeMenu}>About</NavLink>
+                            {dashboardPath && (
+                                <NavLink to={dashboardPath} onClick={closeMenu}>Dashboard</NavLink>
+                            )}
                         </nav>
                     </div>
                     <div className="mobile-auth">
