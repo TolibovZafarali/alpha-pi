@@ -1,6 +1,7 @@
 package com.example.backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,11 +13,11 @@ public class InvestorProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false,
+        foreignKey = @ForeignKey(name = "fk_investor_profile_user")
+    )
+    private User user;
 
     private String contactName;
     private String contactEmail;
@@ -30,16 +31,15 @@ public class InvestorProfile {
 
     // List of saved businesses
     @OneToMany(mappedBy = "investor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<InvestorSavedBusiness> savedBusinesses;
 
     // Constructors
     public InvestorProfile() {
     }
 
-    public InvestorProfile(Long id, String email, String password, String contactName, String contactEmail, String contactPhone, String photoUrl, String state, String investmentRange, String interests, List<InvestorSavedBusiness> savedBusinesses) {
+    public InvestorProfile(Long id, String contactName, String contactEmail, String contactPhone, String photoUrl, String state, String investmentRange, String interests, List<InvestorSavedBusiness> savedBusinesses) {
         this.id = id;
-        this.email = email;
-        this.password = password;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
         this.contactPhone = contactPhone;
@@ -59,20 +59,12 @@ public class InvestorProfile {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getContactName() {
