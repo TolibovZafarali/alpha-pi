@@ -1,20 +1,24 @@
-# ---------- build stage ----------
-FROM maven:3.9-eclipse-temurin-21 AS build
+# -------- build stage (GHCR, not Docker Hub) --------
+FROM ghcr.io/adoptium/temurin:21-jdk AS build
 WORKDIR /workspace
 
-# Cache deps first
-COPY backend/pom.xml .
-RUN mvn -q -e -DskipTests dependency:go-offline
+# Install Maven (so we don't pull maven:... from Docker Hub)
+RUN apt-get update && apt-get install -y --no-install-recommends maven \
+  && rm -rf /var/lib/apt/lists/*
 
-# Build
+# Cache deps
+COPY backend/pom.xml .
+RUN mvn -q -DskipTests dependency:go-offline
+
+# Build app
 COPY backend/src ./src
 RUN mvn -q -DskipTests package
 
-# ---------- runtime stage ----------
-FROM eclipse-temurin:21-jre
+# -------- runtime stage (GHCR) --------
+FROM ghcr.io/adoptium/temurin:21-jre
 WORKDIR /app
 
-# Copy the built jar (adjust if your artifactId/version change)
+# Copy built jar
 COPY --from=build /workspace/target/*.jar app.jar
 
 # Railway provides PORT; Spring reads server.port=${PORT:8080}
