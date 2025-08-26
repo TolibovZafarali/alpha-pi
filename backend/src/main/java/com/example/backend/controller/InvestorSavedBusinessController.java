@@ -1,99 +1,90 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.BusinessProfile;
-import com.example.backend.model.InvestorProfile;
+import com.example.backend.dto.InterestedInvestorDTO;
 import com.example.backend.model.InvestorSavedBusiness;
 import com.example.backend.repository.BusinessProfileRepository;
 import com.example.backend.repository.InvestorProfileRepository;
 import com.example.backend.repository.InvestorSavedBusinessRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.security.JwtAuthenticationFilter.JwtUserAuthentication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/saved")
+@RequestMapping
 public class InvestorSavedBusinessController {
 
-    @Autowired
-    private InvestorProfileRepository investorProfileRepository;
+    private final InvestorSavedBusinessRepository savedRepo;
+    private final InvestorProfileRepository investorRepo;
+    private final BusinessProfileRepository businessRepo;
 
-    @Autowired
-    private BusinessProfileRepository businessProfileRepository;
+    public InvestorSavedBusinessController(InvestorSavedBusinessRepository savedRepo, InvestorProfileRepository investorRepo, BusinessProfileRepository businessRepo) {
+        this.savedRepo = savedRepo;
+        this.investorRepo = investorRepo;
+        this.businessRepo = businessRepo;
+    }
 
-    @Autowired
-    private InvestorSavedBusinessRepository savedBusinessRepository;
+    @PostMapping("/api/me/saved/{businessId}")
+    @PreAuthorize("hasRole('INVESTOR')")
+    public ResponseEntity<?> saveMyBusiness(@PathVariable Long businessId, Authentication auth) {
+        var me = (JwtUserAuthentication) auth;
+        var investor = investorRepo.findByUserId(me.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Investor profile not found"));
+        var business = businessRepo.findById(businessId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Business profile not found"));
 
-    // SAVE a Business
-    @PostMapping("/{investorId}/{businessId}")
-    public ResponseEntity<?> saveBusiness(@PathVariable Long investorId, @PathVariable Long businessId) {
-        Optional<InvestorProfile> investorOpt = investorProfileRepository.findById(investorId);
-        Optional<BusinessProfile> businessOpt = businessProfileRepository.findById(businessId);
-
-        if (investorOpt.isEmpty() || businessOpt.isEmpty()) {
-            return ResponseEntity.status(404).body("Investor or business not found");
-        }
-
-        // Check if a duplicate exists
-        Optional<InvestorSavedBusiness> existing = savedBusinessRepository
-                .findByInvestorAndBusiness(investorOpt.get(), businessOpt.get());
-
+        var existing = savedRepo.findByInvestorAndBusiness(investor, business);
         if (existing.isPresent()) {
             return ResponseEntity.badRequest().body("Already saved");
         }
-
-        InvestorSavedBusiness saved = new InvestorSavedBusiness();
-        saved.setInvestor(investorOpt.get());
-        saved.setBusiness(businessOpt.get());
-        saved.setSavedAt(java.time.LocalDateTime.now());
-
-        savedBusinessRepository.save(saved);
+        var saved = new InvestorSavedBusiness();
+        saved.setInvestor(investor);
+        saved.setBusiness(business);
+        saved.setSavedAt(LocalDateTime.now());
+        savedRepo.save(saved);
         return ResponseEntity.ok("Business saved");
     }
 
-    // UNSAVE a Business
-    @DeleteMapping("/{investorId}/{businessId}")
-    public ResponseEntity<?> unsaveBusiness(@PathVariable Long investorId, @PathVariable Long businessId) {
-        Optional<InvestorProfile> investorOpt = investorProfileRepository.findById(investorId);
-        Optional<BusinessProfile> businessOpt = businessProfileRepository.findById(businessId);
-
-        if (investorOpt.isEmpty() || businessOpt.isEmpty()) {
-            return ResponseEntity.status(404).body("Investor or business not found");
-        }
-
-        Optional<InvestorSavedBusiness> existing = savedBusinessRepository
-                .findByInvestorAndBusiness(investorOpt.get(), businessOpt.get());
-
-        if (existing.isEmpty()) {
-            return ResponseEntity.status(404).body("Save record not found");
-        }
-
-        savedBusinessRepository.delete(existing.get());
+    @DeleteMapping("/api/me/saved/{businessId}")
+    @PreAuthorize("hasRole('INVESTOR')")
+    public ResponseEntity<?> unsaveMyBusiness(@PathVariable Long businessId, Authentication auth) {
+        var me = (JwtUserAuthentication) auth;
+        var investor = investorRepo.findByUserId(me.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Investor profile not found"));
+        var business = businessRepo.findById(businessId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Business profile not found"));
+        var existing = savedRepo.findByInvestorAndBusiness(investor, business)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Save record not found"));
+        savedRepo.delete(existing);
         return ResponseEntity.ok("Business unsaved");
     }
 
-    // GET all Investors who saved a specific Business
-    @GetMapping("/business/{businessId}")
-    public ResponseEntity<?> getInterestedInvestors(@PathVariable Long businessId) {
-        Optional<BusinessProfile> businessOpt = businessProfileRepository.findById(businessId);
-        if (businessOpt.isEmpty()) {
-            return ResponseEntity.status(404).body("Business not found");
-        }
+    // === For business owners: see investors who saved "my" business ===
+    @GetMapping("/api/me/business/interested")
+    @PreAuthorize("hasRole('BUSINESS')")
+    public ResponseEntity<List<InterestedInvestorDTO>> getInterestedInMyBusiness(Authentication auth) {
+        var me = (JwtUserAuthentication) auth;
+        var myBusiness = businessRepo.findByUserId(me.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Business profile not found"));
+        var savedList = savedRepo.findByBusiness(myBusiness);
+        var out = savedList.stream().map(sb -> {
+            var inv = sb.getInvestor();
+            var dto = new InterestedInvestorDTO();
+            dto.setContactName(inv.getContactName());
+            dto.setContactEmail(inv.getContactEmail());
+            dto.setContactPhone(inv.getContactPhone());
+            dto.setPhotoUrl(inv.getPhotoUrl());
+            dto.setState(inv.getState());
+            return dto;
+        }).collect(Collectors.toList());
 
-        List<InvestorSavedBusiness> savedList = savedBusinessRepository.findByBusiness(businessOpt.get());
-
-        List<Map<String, Object>> investors = new ArrayList<>();
-        for (InvestorSavedBusiness saved : savedList) {
-            InvestorProfile investor = saved.getInvestor();
-            Map<String, Object> investorData = new HashMap<>();
-            investorData.put("contactName", investor.getContactName());
-            investorData.put("contactPhone", investor.getContactPhone());
-            investorData.put("state", investor.getState());
-            investors.add(investorData);
-        }
-
-        return ResponseEntity.ok(investors);
+        return ResponseEntity.ok(out);
     }
 }

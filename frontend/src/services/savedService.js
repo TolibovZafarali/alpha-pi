@@ -1,18 +1,5 @@
-import axios from 'axios';
+import api from "./api";
 
-const BASE_URL = 'http://localhost:8080/api/saved';
-
-// Save a business for an investor
-export const saveBusiness = (investorId, businessId) => {
-  return axios.post(`${BASE_URL}/${investorId}/${businessId}`);
-};
-
-// Unsave a business for an investor
-export const unsaveBusiness = (investorId, businessId) => {
-  return axios.delete(`${BASE_URL}/${investorId}/${businessId}`);
-};
-
-// Get list of investors who saved a specific business
-export const getInterestedInvestors = (businessId) => {
-  return axios.get(`${BASE_URL}/business/${businessId}`);
-};
+// uses identity from JWT; no investorId in URL
+export const saveBusiness = (businessId) => api.post(`/api/me/saved/${businessId}`);
+export const unsaveBusiness = (businessId) => api.delete(`/api/me/saved/${businessId}`);

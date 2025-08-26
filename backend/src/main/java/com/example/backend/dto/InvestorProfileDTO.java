@@ -4,7 +4,7 @@ import java.util.List;
 
 public class InvestorProfileDTO {
     private Long id;
-    private String email;
+    private Long userId;
     private String contactName;
     private String contactEmail;
     private String contactPhone;
@@ -24,12 +24,12 @@ public class InvestorProfileDTO {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getContactName() {

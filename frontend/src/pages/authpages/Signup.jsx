@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import getFullName from "../../utils/joinName";
-import SignupRequest from "../../models/SignupRequest";
-import { signupBusiness } from "../../services/businessService";
-import { signupInvestor } from "../../services/investorService";
-import { saveAuth } from "../../utils/auth";
+import { signup } from "../../services/authService";
+import { getAuth } from "../../utils/auth";
 import PasswordValidator from "../../utils/PasswordValidator";
 import "./Signup.css"
+import { updateMyBusiness } from "../../services/businessService";
+import { updateMyInvestor } from "../../services/investorService";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -24,7 +24,6 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const contactName = getFullName(firstName, lastName);
-        const request = new SignupRequest(email, password, contactName, email);
 
         if (password != confirmPassword) {
             setPasswordMatch(false);
@@ -37,13 +36,20 @@ const Signup = () => {
         }
 
         try {
-            const response = role === "business"
-                ? await signupBusiness(request)
-                : await signupInvestor(request);
+            await signup({ email, password, role: role.toUpperCase() });
+            
+            try {
+                if (role === "business") {
+                    await updateMyBusiness({ contactName, contactEmail: email });
+                } else {
+                    await updateMyInvestor({ contactName, contactEmail: email });
+                }
+            } catch {
+                // this error is non-fatal
+            }
 
-            const id = response.data;
-            saveAuth(id, role);
-            navigate(`/${role}/${id}/dashboard`);
+            const { role: r } = getAuth();
+            navigate(r === "BUSINESS" ? "/business/dashboard" : "/investor/dashboard");
         } catch (err) {
             setError(err.response?.data || "Something went wrong.");
         }

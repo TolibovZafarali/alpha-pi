@@ -1,9 +1,8 @@
 import { useState } from "react";
 import "./Signup.css"
 import { useNavigate } from "react-router-dom";
-import { loginBusiness } from "../../services/businessService";
-import { saveAuth } from "../../utils/auth";
-import { loginInvestor } from "../../services/investorService";
+import { login } from "../../services/authService";
+import { getAuth } from "../../utils/auth";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -18,25 +17,14 @@ const Login = () => {
         setError("");
 
         try {
-            // Trying business login first
-            const businessRes = await loginBusiness({ email, password });
-            const id = businessRes.data;
-
-            saveAuth(id, "business", "");
-            navigate(`/business/${id}/dashboard`);
-        } catch {
-            // If business login fails, trying investor login
-            try {
-                const investorRes = await loginInvestor({ email, password });
-                const id = investorRes.data;
-                
-                saveAuth(id, "investor", "");
-                navigate(`/investor/${id}/dashboard`);
-            } catch {
-                setError("Invalid credentials. Please check your email and password.")
-            }
+            await login({ email, password });
+            const { role } = getAuth();
+            navigate(role === "BUSINESS" ? "/business/dashboard" : "/investor/dashboard");
+        } catch (err) {
+            setError(err?.response?.data || "Invalid credentials. Please check your email and password.")
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     return (
