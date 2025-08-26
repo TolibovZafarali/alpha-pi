@@ -27,7 +27,9 @@ const Header = () => {
   }, []);
 
   const handleLogout = async () => {
-    try { await logout(); } catch {}
+    try { await logout(); } catch {
+      // ignore
+    }
     setUser(null);
     setMenuOpen(false);
     navigate("/");
