@@ -1,25 +1,24 @@
 package com.example.backend.config;
 
 import com.example.backend.repository.UserRepository;
-import com.example.backend.security.JwtAuthenticationFilter;
-import com.example.backend.security.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.*;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableMethodSecurity
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
@@ -60,20 +59,25 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtUtils jwt,
-                                           UserRepository users,
-                                           AuthenticationEntryPoint json401,
-                                           AccessDeniedHandler json403) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(e -> e.authenticationEntryPoint(json401).accessDeniedHandler(json403))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/actuator/health").permitAll()
+                        // allow CORS preflight from browser
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // public/health endpoints
+                        .requestMatchers("/api/public/**", "/actuator/health").permitAll()
+
+                        // auth endpoints used before a token exists
+                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+
+                        // everything else requires a valid JWT
                         .anyRequest().authenticated()
-                )
-                .addFilterBefore(new JwtAuthenticationFilter(jwt, users), UsernamePasswordAuthenticationFilter.class);
+                );
+
         return http.build();
     }
 }
