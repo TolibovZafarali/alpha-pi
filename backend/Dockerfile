@@ -1,14 +1,5 @@
-# ---- Build stage
-FROM maven:3.9-amazoncorretto-21-alpine AS build
-WORKDIR /workspace
-COPY pom.xml .
-COPY src ./src
-RUN mvn -DskipTests package
-
-# ---- Run stage
-FROM amazoncorretto:21-alpine
+FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=build /workspace/target/*.jar app.jar
-ENV PORT=8080
+COPY app.jar /app/app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-Dserver.port=${PORT}","-jar","/app/app.jar"]
+ENTRYPOINT ["java","-Dserver.port=8080","-jar","/app/app.jar"]
