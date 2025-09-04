@@ -1,0 +1,10 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "018252911471.dkr.ecr.us-east-2.amazonaws.com/alpha-pi-backend:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    { "ContainerPort": "8080" }
+  ]
+}
