@@ -60,7 +60,7 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
                         <div key={business.id} className="browse-card">
                             <div className="browse-card-top">
                                 <div className="browse-logo">
-                                    <img src={business.logoUrl} alt="logo" />
+                                    <img src={business.logoUrl} alt="logo" onError={(e) => (e.target.src = "/LOGO.svg")}/>
                                 </div>
 
                                 <div className="browse-name-industry">
