@@ -52,7 +52,10 @@ api.interceptors.response.use(
                     { headers: { "Content-Type": "application/json"} }
                 );
                 // backend returns { accessToken, refreshToken }
-                setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken });
+                setTokens({
+                    accessToken: data.accessToken,
+                    refreshToken: data.refreshToken ?? data.refresh ?? data.refresh_token,
+                })
                 flushQueue(null, data.accessToken);
                 original.headers.Authorization = `Bearer ${data.accessToken}`;
                 return api(original);
