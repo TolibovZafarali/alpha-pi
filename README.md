@@ -4,7 +4,7 @@ Alpha-Pi is a full-stack platform that connects small business owners with poten
 
 ---
 
-✨ Live Demo: [thealphapi.com] (https://www.thealphapi.com)
+✨ Live Demo: [thealphapi.com](https://www.thealphapi.com)
 
 ---
 
@@ -73,7 +73,7 @@ VITE_GNEWS_API_KEY=your_api_key
 
 - Backend: packaged with Docker and deployed to AWS Elastic Beanstalk
 - Database: AWS RDS (Aurora MySQL)
-- Frontend: deployed via AWS Amplify (connected to domain [thealphapi.com] (https://www.thealphapi.com))
+- Frontend: deployed via AWS Amplify (connected to domain [thealphapi.com](https://www.thealphapi.com))
 
 ---
 
