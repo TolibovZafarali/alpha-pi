@@ -21,7 +21,13 @@ const InvestorDashboard = () => {
       setLoading(true);
       try {
         const [inv, list] = await Promise.all([getMyInvestor(), getAllPublishedBusinesses()]);
-        setProfile({ ...(inv.data || {}), savedBusinesses: inv.data?.savedBusinesses || [] });
+        
+        const savedBusinesses = (inv.data?.savedBusinesses || []).map(({ businessId, ...rest }) => ({
+          ...rest,
+          id: businessId,
+        }));
+
+        setProfile({ ...(inv.data || {}), savedBusinesses });
         setAllBusinesses(list.data || []);
       } catch (err) {
         console.error(err);
