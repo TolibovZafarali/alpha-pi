@@ -86,13 +86,15 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<?> refresh(@Valid @RequestBody AuthDtos.RefreshRequest req) {
 
-        var anyUser = refreshTokens.validateAndRotate(req.refreshToken);
-        if (anyUser.isEmpty()) return ResponseEntity.status(401).body("invalid refresh token");
+        var rotation = refreshTokens.validateAndRotate(req.refreshToken);
+        if (rotation.isEmpty()) return ResponseEntity.status(401).body("invalid refresh token");
 
-        var user = anyUser.get();
+        var result = rotation.get();
+        var user = result.user();
+
         String access = jwt.issueAccessToken(user.getId(), user.getEmail(), user.getRole().name(), user.getTokenVersion());
-        String newRefresh = refreshTokens.issue(user); // rotation
-        return ResponseEntity.ok(new Tokens(access, newRefresh));
+
+        return ResponseEntity.ok(new Tokens(access, result.newToken()));
     }
 
     @PostMapping("/logout")

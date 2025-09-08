@@ -5,6 +5,7 @@ import com.example.backend.model.User;
 import com.example.backend.repository.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -38,19 +39,24 @@ public class RefreshTokenService {
         return raw; // return the raw to the client once
     }
 
-    public Optional<User> validateAndRotate (String raw) {
+    @Transactional
+    public Optional<RotationResult> validateAndRotate (String raw) {
         String hash = hash(raw);
         var opt = repo.findByTokenHash(hash);
         if (opt.isEmpty()) return Optional.empty();
         var token = opt.get();
         if (!token.isActive()) return Optional.empty();
 
-        // revoke old
+        // revoke old token
         token.setRevokedAt(LocalDateTime.now());
         repo.save(token);
 
-        return Optional.of(token.getUser());
+        // issue a new token for the same user
+        String newToken = issue(token.getUser());
+        return Optional.of(new RotationResult(token.getUser(), newToken));
     }
+
+    public record RotationResult(User user, String newToken) {}
 
     public void revokeRaw(String raw) {
         var opt = repo.findByTokenHash(hash(raw));
