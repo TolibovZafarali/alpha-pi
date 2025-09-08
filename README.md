@@ -1,6 +1,10 @@
 # Alpha-Pi
 
-Alpha-Pi is a full-stack platform that helps small business owners connect with investors in a more approachable and intelligent way. Business owners can build professional profiles with detailed business metrics, while investors can browse, filter, and save startups that match their interests and investment range. The platform includes smart filtering, investor-business messaging, and an AI mentor to guide business owners. Alpha-Pi is designed to make business funding more accessible, and to replace intimidating processes with a human-friendly and intuitive experience.
+Alpha-Pi is a full-stack platform that connects small business owners with potential investors in a simple and approachable way. Business owners can create professional profiles with real business metrics, while investors can browse, filter, and save startups that align with their industry interests and investment range.
+
+---
+
+✨ Live Demo: [thealphapi.com] (https://www.thealphapi.com)
 
 ---
 
@@ -9,16 +13,21 @@ Alpha-Pi is a full-stack platform that helps small business owners connect with 
 ### Frontend
 - React + Vite
 - Custom styling with Flexbox
-- EmailJS (for investor-to-business contact)
-- React Router
+- EmailJS for investor-to-business contact
+- React Router for navigation
+- Axios for API communication
 
 ### Backend
-- Java + Spring Boot
-- MySQL with Spring Data JPA (ORM)
+- Java 21 + Spring Boot 3
+- MySQL with Spring Data JPA
+- JWT authentication (access & refresh tokens)
+- Role-based security
+- Validation with Hibernate Validator
 - RESTful API design
-- Java Validation (Hibernate Validator)
 
-### Other
+### Infrastructure & Tools
+- AWS Elastic Beanstalk + RDS (Aurora/MySQL)
+- Dockerized backend for deployment
 - Git & GitHub (version control)
 - Postman (API testing)
 
@@ -58,15 +67,27 @@ Create a `.env` file in the `frontend/` directory and add:
 VITE_GNEWS_API_KEY=your_api_key
 ```
 
+---
+
+### Deployment
+
+- Backend: packaged with Docker and deployed to AWS Elastic Beanstalk
+- Database: AWS RDS (Aurora MySQL)
+- Frontend: deployed via AWS Amplify (connected to domain [thealphapi.com] (https://www.thealphapi.com))
+
+---
+
 #### Wireframe
 Link: [Figma](https://www.figma.com/design/tCyj21yBK2Y2o2Gd2A2Uko/Wireframe-for-Alpha-Pi?node-id=54-136&t=aE5CSBCbd69RO32V-1)
 
 ### ER Diagram
 Link: [DB Diagram](https://dbdiagram.io/d/Updated-Diagram-6887acd2cca18e685c19f8b2)
 
-#### Unsolved Problems / Future Features
-- In-app chat with message history and real-time updates (currently using EmailJS)
-- AI mentor to assist business owners based on profile data
-- Admin dashboard for platform moderation and analytics
-- Location-based search and filtering (e.g. by state)
-- Investor-side notifications for profile matches or contact attempts
+#### Roadmap
+
+- ✅ Business & Investor dashboards
+- ✅ Role-aware JWT authentication
+- ✅ Smart filtering system
+- ✅ EmailJS integration
+- ⏳ AI mentor for personalized startup guidance
+- ⏳ Real-time chat between investors & business owners
