@@ -13,7 +13,7 @@ const InvestorDashboard = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sidebarKey, setSidebarKey] = useState(0);
-  const [activeTab, setActiveTab] = useState("saved");
+  const [activeTab, setActiveTab] = useState("browse");
 
   // Fetch my investor profile + public businesses
   useEffect(() => {
@@ -43,6 +43,12 @@ const InvestorDashboard = () => {
     profile.contactEmail &&
     profile.contactPhone &&
     profile.photoUrl;
+
+  useEffect(() => {
+    if (!isProfileComplete && activeTab !== "browse") {
+      setActiveTab("browse");
+    }
+  }, [isProfileComplete, activeTab]);
 
   const handleProfileSave = async (updatedProfile) => {
     try {
@@ -124,6 +130,7 @@ const InvestorDashboard = () => {
             key={sidebarKey}
             isProfileComplete={isProfileComplete}
             isEditable={!isProfileComplete}
+            activeTab={activeTab}
             onTabChange={setActiveTab}
           />
         </div>

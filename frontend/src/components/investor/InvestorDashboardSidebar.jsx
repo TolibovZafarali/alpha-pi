@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./InvestorDashboardSidebar.css";
 
-const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }) => {
-    const [activeTab, setActiveTab] = useState("browse");
+const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, activeTab, onTabChange }) => {
     const isDisabled = !isProfileComplete || isEditable;
 
     const handleClick = (tab) => {
         if (isDisabled) return;
-        setActiveTab(tab);
         onTabChange(tab);
     };
 
     // Ensure toggle is in sync if props reset the view
     useEffect(() => {
-        if (isDisabled) setActiveTab("browse");
-    }, [isDisabled]);
+        if (isDisabled && activeTab !== "browse") {
+            onTabChange("browse");
+        }
+    }, [isDisabled, activeTab, onTabChange]);
 
     return (
         <div className="dashboard-sidebar">
