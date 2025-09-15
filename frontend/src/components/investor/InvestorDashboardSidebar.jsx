@@ -22,16 +22,16 @@ const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }
 
             <div className={`tab-toggle-switch ${isDisabled ? "disabled" : ""}`}>
                 <div
-                    className={`toggle-option ${activeTab === "saved" ? "active" : ""}`}
-                    onClick={() => handleClick("saved")}
-                >
-                    Saved
-                </div>
-                <div
                     className={`toggle-option ${activeTab === "browse" ? "active" : ""}`}
                     onClick={() => handleClick("browse")}
                 >
                     Browse
+                </div>
+                <div
+                    className={`toggle-option ${activeTab === "saved" ? "active" : ""}`}
+                    onClick={() => handleClick("saved")}
+                >
+                    Saved
                 </div>
                 <div className={`toggle-slider ${activeTab}`}></div>
             </div>

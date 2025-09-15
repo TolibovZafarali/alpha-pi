@@ -102,7 +102,6 @@ const InvestorDashboard = () => {
         />
       </div>
       <div className="dashboard-right">
-        <h2 className="sidebar-header">Invest in Tomorrow's Success</h2>
         <div className="tab-content">
           {activeTab === "saved" && isProfileComplete && (
             <SavedBusinesses
