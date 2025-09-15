@@ -35,8 +35,11 @@ const InvestorProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
         setInterests(profile.interests || "");
 
         const range = profile.investmentRange || "";
-        setMinInvest(getMinInvest(range));
-        setMaxInvest(getMaxInvest(range));
+        const minInvestment = getMinInvest(range);
+        const maxInvestment = getMaxInvest(range);
+
+        setMinInvest(minInvestment != null ? minInvestment : "");
+        setMaxInvest(maxInvestment != null ? maxInvestment : "");
 
         const interestList = profile.interests ? profile.interests.split(",").map((s) => s.trim()) : [];
         setSelectedInterests(interestList);
