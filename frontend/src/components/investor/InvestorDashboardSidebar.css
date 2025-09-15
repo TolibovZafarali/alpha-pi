@@ -97,10 +97,10 @@
   z-index: 0;
 }
 
-.toggle-slider.saved {
+.toggle-slider.browse {
   left: 5px;
 }
 
-.toggle-slider.browse {
+.toggle-slider.saved {
   left: calc(50% - 5px);
 }
