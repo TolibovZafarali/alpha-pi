@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./InvestorDashboardSidebar.css";
 
 const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }) => {
-    const [activeTab, setActiveTab] = useState("saved");
+    const [activeTab, setActiveTab] = useState("browse");
     const isDisabled = !isProfileComplete || isEditable;
 
     const handleClick = (tab) => {
@@ -13,7 +13,7 @@ const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, onTabChange }
 
     // Ensure toggle is in sync if props reset the view
     useEffect(() => {
-        if (isDisabled) setActiveTab("saved");
+        if (isDisabled) setActiveTab("browse");
     }, [isDisabled]);
 
     return (
