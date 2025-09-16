@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getMaxInvest, getMinInvest } from "../../utils/getInvestRange";
 import industries from "../../data/industries.json"
 import "./BrowseFilters.css"
+import parseInterests from "../../utils/parseInterests";
 
 const BrowseFilters = ({ investorProfile, onFilterChange }) => {
     const [activeMainFilter, setActiveMainFilter] = useState("industry");
     const [investmentRangeEnabled, setInvestmentRangeEnabled] = useState(false);
     const [selectedIndustry, setSelectedIndustry] = useState("All");
 
-    // Parse investor interests, they are stored as comma-seperated string
-    const parsedInterests = investorProfile?.interests
-        ? investorProfile.interests.split(",").map(i => i.trim())
-        : [];
+    // Parse investor interests, they are stored as comma-separated string
+    const interestsSource = investorProfile?.interests ?? "";
+    const parsedInterests = useMemo(
+        () => parseInterests(interestsSource),
+        [interestsSource]
+    );
 
-    const minInvest = investorProfile ? getMinInvest(investorProfile.investmentRange) : null;
-    const maxInvest = investorProfile ? getMaxInvest(investorProfile.investmentRange) : null;
+    const investmentRange = investorProfile?.investmentRange;
+    const minInvest = useMemo(() => getMinInvest(investmentRange), [investmentRange]);
+    const maxInvest = useMemo(() => getMaxInvest(investmentRange), [investmentRange]);
 
     // handle filted changes and notify parent component
     useEffect(() => {
@@ -26,7 +30,15 @@ const BrowseFilters = ({ investorProfile, onFilterChange }) => {
             minInvest,
             maxInvest
         });
-    }, [activeMainFilter, selectedIndustry, investmentRangeEnabled]);
+    }, [
+        activeMainFilter,
+        selectedIndustry,
+        investmentRangeEnabled,
+        maxInvest,
+        minInvest,
+        onFilterChange,
+        parsedInterests,
+    ]);
     
     return (
         <div className="browse-filters">

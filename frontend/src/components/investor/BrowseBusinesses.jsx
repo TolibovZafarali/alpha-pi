@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BrowseFilters from "./BrowseFilters";
 import formatCurrency from "../../utils/formatCurrency";
 import "./BrowseBusinesses.css"
@@ -11,7 +11,7 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
         setExpandedId(expandedId === id ? null : id);
     };
 
-    const handleFilterChange = ({
+    const handleFilterChange = useCallback(({
         activeMainFilter,
         selectedIndustry,
         useInvestmentRange,
@@ -40,7 +40,7 @@ const BrowseBusinesses = ({ businesses, investorProfile, onSave }) => {
         }
 
         setFilterBusinesses(result);
-    }
+    }, [businesses]);
     
     useEffect(() => {
         setFilterBusinesses(businesses);

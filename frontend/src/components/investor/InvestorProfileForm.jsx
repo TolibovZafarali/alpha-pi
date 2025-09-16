@@ -7,6 +7,7 @@ import industries from "../../data/industries.json"
 import "./InvestorProfileForm.css"
 import states from "../../data/states.json"
 import isInvestorProfileComplete from "../../utils/isInvestorProfileComplete";
+import parseInterests from "../../utils/parseInterests";
 
 const InvestorProfileForm = ({ profile, onSave, isEditable: parentEditable }) => {
     //State for all fields required by blueprint class
@@ -32,7 +33,8 @@ const InvestorProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
         setContactPhone(profile.contactPhone || "");
         setPhotoUrl(profile.photoUrl || "");
         setState(profile.state || "");
-        setInterests(profile.interests || "");
+        const interestList = parseInterests(profile.interests);
+        setInterests(interestList.join(", "));
 
         const range = profile.investmentRange || "";
         const minInvestment = getMinInvest(range);
@@ -41,7 +43,6 @@ const InvestorProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
         setMinInvest(minInvestment != null ? minInvestment : "");
         setMaxInvest(maxInvestment != null ? maxInvestment : "");
 
-        const interestList = profile.interests ? profile.interests.split(",").map((s) => s.trim()) : [];
         setSelectedInterests(interestList);
 
         setEditMode(parentEditable);
@@ -122,12 +123,9 @@ const InvestorProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
                         <div className="info-row">
                             <div className="info-label">Interests</div>
                             <div className="info-value interest-tags">
-                                {profile.interests
-                                    .split(",")
-                                    .map((interest) => interest.trim())
-                                    .map((interest, i) => (
-                                        <span key={i} className="interest-pill">{interest}</span>
-                                    ))}
+                                {parseInterests(profile?.interests).map((interest, i) => (
+                                    <span key={i} className="interest-pill">{interest}</span>
+                                ))}
                             </div>
                         </div>
                     </div>
