@@ -67,7 +67,14 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
                         <div className="business-card-top">
                             {/* Logo */}
                             <div className="business-logo">
-                                <img src={business.logoUrl} alt="logo" />
+                                <img
+                                    src={business.logoUrl || "/LOGO.svg"}
+                                    alt="logo"
+                                    onError={(e) => {
+                                        if (e.target.src.endsWith("/LOGO.svg")) return;
+                                        e.target.src = "/LOGO.svg";
+                                    }}
+                                />
                             </div>
 
                             {/* Name + Industry */}
