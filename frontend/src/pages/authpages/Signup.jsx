@@ -7,6 +7,7 @@ import PasswordValidator from "../../utils/PasswordValidator";
 import "./Signup.css"
 import { updateMyBusiness } from "../../services/businessService";
 import { updateMyInvestor } from "../../services/investorService";
+import getErrorMessage from "../../utils/getErrorMessage";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Signup = () => {
             const { role: r } = getAuth();
             navigate(r === "BUSINESS" ? "/business/dashboard" : "/investor/dashboard");
         } catch (err) {
-            setError(err.response?.data || "Something went wrong.");
+            setError(getErrorMessage(err));
         }
     };
     

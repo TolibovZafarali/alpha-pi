@@ -3,6 +3,7 @@ import "./Signup.css"
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
 import { getAuth } from "../../utils/auth";
+import getErrorMessage from "../../utils/getErrorMessage";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -21,7 +22,12 @@ const Login = () => {
             const { role } = getAuth();
             navigate(role === "BUSINESS" ? "/business/dashboard" : "/investor/dashboard");
         } catch (err) {
-            setError(err?.response?.data || "Invalid credentials. Please check your email and password.")
+            setError(
+                getErrorMessage(
+                    err,
+                    "Invalid credentials. Please check your email and password."
+                )
+            );
         } finally {
             setLoading(false);
         }
