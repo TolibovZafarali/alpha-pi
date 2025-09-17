@@ -107,6 +107,10 @@
   text-align: right;
 }
 
+.success {
+  color: black;
+}
+
 /* Responsive layout */
 @media (max-width: 480px) {
   .contact-us-main .contact-us {
