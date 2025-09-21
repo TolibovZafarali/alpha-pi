@@ -1,8 +1,15 @@
+const normalize = (value) => {
+    if (typeof value !== "string") {
+        return "";
+    }
+    return value.trim();
+}
+
 const getFullName = (first, last) => {
-    first = first.trim();
-    last = last.trim();
-    
-    return (`${first} ${last}`.trim());
+    const normalizedFirst = normalize(first);
+    const normalizedLast = normalize(last);
+
+    return (`${normalizedFirst} ${normalizedLast}`.trim());
 }
  
 export default getFullName;
