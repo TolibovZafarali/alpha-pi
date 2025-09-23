@@ -184,7 +184,7 @@ const BusinessProfileForm = ({ profile, onSave, isEditable: parentEditable }) =>
                             maxLength={140}
                         />
                         <label className="floating-label">Description</label>
-                        <p className="char-counter">{description.length}140</p>
+                        <p className="char-counter">{description.length}/140</p>
                     </div>
                     <div className="row-triple">
                         <div className="input-wrapper">
