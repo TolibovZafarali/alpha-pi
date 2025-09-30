@@ -7,12 +7,9 @@ const About = () => {
       <section className="about-section">
         <h1>About Alpha-Pi</h1>
         <p>
-          Alpha-Pi is a platform designed to bridge the gap between small business
-          owners and investors. It allows business owners to create polished profiles,
-          showcase their business goals, and connect with interested investors.
-          Meanwhile, investors can browse startups by industry, save favorites,
-          and engage in meaningful conversations. The platform also includes a
-          built-in AI Mentor to support founders on their entrepreneurial journey.
+          Alpha-Pi is a full-stack platform that connects small business owners with potential investors in a simple and approachable way. 
+          Business owners can create professional profiles with real business metrics, while investors can browse, filter, 
+          and save startups that align with their industry interests and investment range.
         </p>
       </section>
 
