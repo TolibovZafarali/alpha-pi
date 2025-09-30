@@ -37,6 +37,9 @@ const Login = () => {
         <div className="signup-page">
             <div className="sign-page-div">
                 <h1>Log In</h1>
+                <p className="environment-notice">
+                    We're currently finalizing our database and backend hosting. Some features may be unavailable while we complete this work.
+                </p>
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <input

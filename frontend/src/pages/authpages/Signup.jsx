@@ -60,7 +60,9 @@ const Signup = () => {
         <div className="signup-page">
             <div className="sign-page-div">
                 <h1>Sign Up</h1>
-
+                <p className="environment-notice">
+                    We're currently finalizing our database and backend hosting. Some features may be unavailable while we complete this work.
+                </p>
                 {/* Toggle */}
                 <div className="role-toggle-switch">
                     <div className={`toggle-option ${role === "business" ? "active" : ""}`} onClick={() => setRole("business")}>

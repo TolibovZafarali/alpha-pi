@@ -29,6 +29,17 @@
   text-align: center;
 }
 
+.environment-notice {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: -1rem 0 2rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #333;
+  text-align: center;
+}
+
 /* Role toggle */
 .role-toggle {
   display: flex;
