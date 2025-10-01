@@ -111,6 +111,8 @@ header.header {
   z-index: 1000;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  overflow-y: auto;
 }
 
 .slide-in {
