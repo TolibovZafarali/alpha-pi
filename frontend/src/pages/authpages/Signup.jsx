@@ -148,7 +148,8 @@ const Signup = () => {
 
                     {error && <p className="error-message">{error}</p>}
 
-                    <button type="submit" className="submit-btn" disabled={!firstName || !lastName || !email || !password || !confirmPassword}>Create Account</button>
+                    {/* Disabled button here temporarily */}
+                    <button type="submit" className="submit-btn" disabled={!firstName || !lastName || !email || !password || !confirmPassword || true}>Create Account</button>
                 </form>
             </div>
         </div>
