@@ -1,119 +1,63 @@
-/* Main wrapper to fill the screen and center content */
-.contact-us-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  background-color: #f9f9f9;
-}
-
-/* Contact form card */
-.contact-us-main .contact-us {
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 3rem 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  width: 95%;
+.contact-page .sign-page-div {
   max-width: 500px;
 }
 
-/* Heading */
-.contact-us-main .contact-us h1 {
-  font-size: 1.8rem;
-  margin-bottom: 1.8rem;
-  text-align: center;
-  font-weight: 500;
+.contact-page .input-wrapper {
+  padding-top: 18px;
+}
+
+.contact-page .optional-label::after {
+  content: "";
+}
+
+.contact-page textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  padding: 6px 0;
+  resize: none;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.contact-page textarea:focus {
+  border-bottom: 1px solid #000;
+}
+
+.contact-page textarea:focus + .floating-label,
+.contact-page textarea:not(:placeholder-shown) + .floating-label {
+  top: 0;
+  font-size: 0.75rem;
   color: #000;
 }
 
-/* Form styling */
-.contact-us-main form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.contact-page .textarea-wrapper {
+  padding-top: 22px;
 }
 
-/* Labels and inputs */
-.contact-us-main label {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.contact-us-main input,
-.contact-us-main textarea {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #fafafa;
-  color: #111;
-  transition: border-color 0.3s;
-}
-
-.contact-us-main input:focus,
-.contact-us-main textarea:focus {
-  border-color: #111;
-  outline: none;
-  background-color: #fff;
-}
-
-.contact-us-main textarea {
-  resize: none;
-  height: 100px;
-  font-family: "DM Serif Display", serif;
-  font-style: normal;
-  font-weight: 400;
-}
-
-.contact-us-main button[type="submit"] {
-  padding: 0.75rem;
-  border: none;
-  background-color: #111;
-  color: white;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-  font-weight: 500;
-}
-
-.contact-us-main button:disabled {
-  background-color: #444;
-  cursor: not-allowed;
-}
-
-.contact-us-main button:hover:not(:disabled) {
-  background-color: #000;
-}
-
-.contact-us-main .success {
-  color: #155724;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  margin-top: 0.8rem;
-  font-size: 0.95rem;
-  text-align: center;
-}
-
-/* Character counter */
-.contact-us-main form > p {
-  margin: 0;
+.contact-page .char-count {
+  margin: -0.5rem 0 0;
   font-size: 0.85rem;
   color: #666;
   text-align: right;
 }
 
-/* Responsive layout */
+.contact-page .success-message {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
 @media (max-width: 480px) {
-  .contact-us-main .contact-us {
-    padding: 2rem 1.5rem;
+  .contact-page .sign-page-div {
+    padding: 2.5rem 1.5rem;
   }
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import "../authpages/Signup.css";
 import "./Contact.css";
 
 const Contact = () => {
@@ -49,65 +50,70 @@ const Contact = () => {
   const remaining = 200 - message.length;
 
   return (
-    <div className="contact-us-main">
-      <div className="contact-us">
+    <div className="signup-page contact-page">
+      <div className="sign-page-div">
         <h1>Contact Us</h1>
         <form onSubmit={handleSubmit} noValidate>
-          <label>
-            Full Name:
+          <div className="input-wrapper">
             <input
               type="text"
+              placeholder=" "
               value={name}
               required
               onChange={(e) => setName(e.target.value)}
             />
-          </label>
+            <label className="floating-label">Full Name</label>
+          </div>
 
-          <label>
-            Email:
+          <div className="input-wrapper">
             <input
               type="email"
+              placeholder=" "
               value={email}
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-          </label>
+            <label className="floating-label">Email</label>
+          </div>
 
-          <label>
-            Phone:
+          <div className="input-wrapper">
             <input
               type="text"
+              placeholder=" "
               value={phone}
-              placeholder="Optional"
               onChange={(e) => setPhone(e.target.value)}
             />
-          </label>
+            <label className="floating-label optional-label">Phone (Optional)</label>
+          </div>
 
-          <label>
-            Message:
+          <div className="input-wrapper textarea-wrapper">
             <textarea
+              placeholder=" "
               value={message}
               required
               onChange={(e) => setMessage(e.target.value)}
               maxLength={200}
             />
-          </label>
+            <label className="floating-label">Message</label>
+          </div>
 
-          <p>{remaining}/200</p>
+          <p className="char-count">{remaining}/200</p>
 
           <button
             type="submit"
+            className="submit-btn"
             disabled={!name || !email || !message || sending}
             aria-busy={sending}
           >
             {sending ? "Sending..." : "Send"}
           </button>
 
-          {successMsg && <p className="success">{successMsg}</p>}
+          {successMsg && <p className="success-message">{successMsg}</p>}
         </form>
       </div>
     </div>
   );
 };
+
 
 export default Contact;
