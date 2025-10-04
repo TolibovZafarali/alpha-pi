@@ -28,10 +28,7 @@ public class ChatController {
     public ConversationDTO start(@RequestBody StartChatRequest req, Authentication auth) {
         Long uid = me(auth);
         var c = chat.startOrGetConversation(uid, req.getBusinessId(), req.getInvestorId());
-        // fetch the single DTO for that conversation
-        var page = chat.listConversations(uid, PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "updatedAt")));
-        return page.stream().filter(x -> x.getId().equals(c.getId())).findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
+        return chat.getConversation(c.getId(), uid);
     }
 
     @GetMapping("/conversations")

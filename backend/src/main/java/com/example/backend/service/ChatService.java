@@ -67,6 +67,14 @@ public class ChatService {
     }
 
     @Transactional(readOnly = true)
+    public ConversationDTO getConversation(Long conversationId, Long callerUserId) {
+        Conversation conversation = conversationRepo.findById(conversationId)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        if (!conversation.hasParticipant(callerUserId)) throw new ResponseStatusException(FORBIDDEN);
+        return toConversationDTO(conversation, callerUserId);
+    }
+
+    @Transactional(readOnly = true)
     public Page<MessageDTO> getMessages(Long conversationId, Long callerUserId, Pageable pageable) {
         ensureParticipant(conversationId, callerUserId);
         return messageRepo.findByConversationIdOrderByCreatedAtDesc(conversationId, pageable)
