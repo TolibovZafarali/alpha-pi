@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.dto.*;
 import com.example.backend.security.JwtAuthenticationFilter.JwtUserAuthentication;
 import com.example.backend.service.ChatService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -50,7 +51,7 @@ public class ChatController {
 
     @PostMapping("/conversations/{id}/messages")
     public MessageDTO send(@PathVariable Long id,
-                           @RequestBody SendMessageRequest body,
+                           @Valid @RequestBody SendMessageRequest body,
                            Authentication auth) {
         Long uid = me(auth);
         return chat.sendMessage(id, uid, body.getContent());
