@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import "./InvestorDashboardSidebar.css";
 
-const InvestorDashboardSidebar = ({ isProfileComplete, isEditable, activeTab, onTabChange }) => {
+const InvestorDashboardSidebar = ({ 
+    isProfileComplete, 
+    isEditable, 
+    activeTab, 
+    onTabChange 
+}) => {
     const isDisabled = !isProfileComplete || isEditable;
 
     const handleClick = (tab) => {

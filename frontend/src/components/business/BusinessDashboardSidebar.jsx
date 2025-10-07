@@ -9,15 +9,16 @@ const BusinessDashboardSidebar = ({
     isProfileComplete, 
     isPublished, 
     onPublishChange, 
-    interestedInvestors 
+    interestedInvestors = []
 }) => {
     const [activeInvestorId, setActiveInvestorId] = useState(null);
 
     const activeInvestor = useMemo(() => {
-        if (!activeInvestor) return null;
+        if (!activeInvestorId) return null;
 
         return (
             interestedInvestors.find((investor) => {
+                if (!investor) return false;
                 if (investor.id && investor.id === activeInvestorId) return true;
                 if (investor.contactEmail && investor.contactEmail === activeInvestorId) return true;
                 if (investor.contactName && investor.contactName === activeInvestorId) return true;
