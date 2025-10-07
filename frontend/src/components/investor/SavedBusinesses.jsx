@@ -1,52 +1,69 @@
-import { useState } from "react";
-import emailjs from "@emailjs/browser"
+import { useEffect, useMemo, useState } from "react";
 import formatPhoneNumber from "../../utils/getPhoneNumber";
+import InvestorChatPanel from "./InvestorChatPanel";
 import "./SavedBusinesses.css"
 
-const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmail }) => {
+const createInitialMessages = (business) => [
+    {
+        id: `intro-${business.id}`,
+        from: "business",
+        text: `Hi ${business.contactName} here from ${business.businessName}. Thanks for saving our profile!`,
+        createdAt: new Date(),
+    },
+];
+
+const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
     const [expandedModeId, setExpandedMoreId] = useState(null);
-    const [expandedContactId, setExpandedContactId] = useState(null);
-    const [message, setMessage] = useState("");
-    const [statusMessages, setStatusMessages] = useState({});
+    const [activeChatBusinessId, setActiveChatBusinessId] = useState(null);
+    const [messagesByBusiness, setMessagesByBusiness] = useState({});
+
+    useEffect(() => {
+        if (activeChatBusinessId && !savedBusinesses.some((b) => b.id === activeChatBusinessId)) {
+            setActiveChatBusinessId(null);
+        }
+    }, [activeChatBusinessId, savedBusinesses]);
+
+    const activeBusiness = useMemo(
+        () => savedBusinesses.find((business) => business.id === activeChatBusinessId) || null,
+        [activeChatBusinessId, savedBusinesses]
+    );
+
+    const ensureConversation = (business) => {
+        setMessagesByBusiness((prev) => {
+            if (prev[business.id]) return prev;
+            return {
+                ...prev,
+                [business.id]: createInitialMessages(business),
+            };
+        });
+    };
 
     const handleToggleMore = (id) => {
         setExpandedMoreId(expandedModeId === id ? null : id);
-        setExpandedContactId(null);
-        setMessage(message);
     };
 
-    const handleToggleContact = (id) => {
-        setExpandedContactId(expandedContactId === id ? null : id);
-        setExpandedMoreId(null);
-        setMessage(message);
-    }
+    const handleOpenChat = (business) => {
+        ensureConversation(business);
+        setActiveChatBusinessId(business.id);
+    };
 
-    const handleSend = (business) => {
-        const templateParams = {
-            to_name: business.contactName,
-            to_email: business.contactEmail,
-            from_name: investorName,
-            from_email: investorEmail,
-            message: message,
-        }
-    
-        emailjs
-            .send("service_n1xxg5b", "template_ivn8aki", templateParams, "-efmrM26rTZPXQY6D")
-            .then(() => {
-                setStatusMessages(prev => ({
-                    ...prev,
-                    [business.id]: "Message sent successfully!"
-                }))
-                setExpandedContactId(null);
-                setMessage("");
-            })
-            .catch((err) => {
-                console.error("Email error", err);
-                setStatusMessages(prev => ({
-                    ...prev,
-                    [business.id]: "Failed to send message. Please try again."
-                }))
-            });
+    const handleSendMessage = (business, text) => {
+        setMessagesByBusiness((prev) => ({
+            ...prev,
+            [business.id]: [
+                ...(prev[business.id] || []),
+                {
+                    id: `investor-${business.id}-${Date.now()}`,
+                    from: "investor",
+                    text,
+                    createdAt: new Date(),
+                },
+            ],
+        }));
+    };
+
+    const handleCloseChat = () => {
+        setActiveChatBusinessId(null);
     };
 
     if (!savedBusinesses || savedBusinesses.length === 0) {
@@ -56,11 +73,24 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
             </div>
         )
     }
+
+    if (activeBusiness) {
+        return (
+            <div className="saved-businesses chat-active">
+                <InvestorChatPanel
+                    business={activeBusiness}
+                    messages={messagesByBusiness[activeBusiness.id] || []}
+                    onSendMessage={(text) => handleSendMessage(activeBusiness, text)}
+                    onBack={handleCloseChat}
+                />
+            </div>
+        );
+    }
+
     return (
         <div className="saved-businesses">
             {savedBusinesses.map((business) => {
                 const isMoreOpen = expandedModeId === business.id;
-                const isContactOpen = expandedContactId === business.id;
 
                 return (
                     <div key={business.id} className="business-card">
@@ -92,29 +122,13 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, investorName, investorEmai
 
                             {/* Action Buttons */}
                             <div className="business-action-buttons">
-                                <button onClick={() => handleToggleContact(business.id)}>Contact</button>
+                                <button onClick={() => handleOpenChat(business)}>Message</button>
                                 <button onClick={() => onRemove(business.id)}>Remove</button>
                                 <button onClick={() => handleToggleMore(business.id)}>
                                     {isMoreOpen ? "Close" : "More"}
                                 </button>
                             </div>
                         </div>
-
-                        {/* Expanded Contact Form */}
-                        {isContactOpen && (
-                            <div className="business-contact-form">
-                                <textarea
-                                    placeholder={`Write your message to ${business.contactName}`}
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    rows={4}
-                                />
-                                <button onClick={() => (handleSend(business))}>Send</button>
-                                {statusMessages[business.id] && (
-                                    <p className="status-message">{statusMessages[business.id]}</p>
-                                )}
-                            </div>
-                        )}
 
                         {/* Expanded More Info */}
                         {isMoreOpen && (

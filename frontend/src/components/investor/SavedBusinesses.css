@@ -9,6 +9,13 @@
   scrollbar-color: #555 transparent;
 }
 
+.saved-businesses.chat-active {
+  max-height: none;
+  height: 100%;
+  padding-right: 0;
+  overflow: hidden;
+}
+
 /* Webkit scrollbar */
 .saved-businesses::-webkit-scrollbar {
   width: 6px;
