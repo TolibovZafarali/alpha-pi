@@ -9,6 +9,13 @@
   box-sizing: border-box;
   border-radius: 16px;
   background-color: #fff;
+  transition: padding 0.25s ease;
+}
+
+.dashboard-sidebar.chat-active {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .sidebar-header {
@@ -19,9 +26,4 @@
   padding-bottom: 0.5rem;
   letter-spacing: 0.5px;
   text-align: center;
-}
-
-.dashboard-sidebar {
-  display: flex;
-  flex-direction: column;
 }

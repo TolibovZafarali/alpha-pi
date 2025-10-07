@@ -81,3 +81,4 @@ const InvestorChatPanel = ({ investor, onBack }) => {
   );
 };
 
+export default InvestorChatPanel;
