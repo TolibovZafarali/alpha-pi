@@ -113,8 +113,6 @@ const InvestorDashboard = () => {
             <SavedBusinesses
               savedBusinesses={profile.savedBusinesses || []}
               onRemove={handleRemove}
-              investorName={profile.contactName}
-              investorEmail={profile.contactEmail}
             />
           )}
           {activeTab === "browse" && (
