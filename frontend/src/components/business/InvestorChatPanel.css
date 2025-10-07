@@ -15,7 +15,7 @@
   justify-content: center;
   gap: 0.75rem;
   padding: 1rem;
-  background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+  background: linear-gradient(135deg, #000000, #000000);
   position: relative;
 }
 
@@ -51,7 +51,7 @@
   flex-direction: column;
   gap: 0.75rem;
   overflow-y: auto;
-  background: radial-gradient(circle at top, rgba(30, 64, 175, 0.35), transparent 65%),
+  background: radial-gradient(circle at top, rgba(107, 107, 107, 0.35), transparent 65%),
     linear-gradient(180deg, rgba(15, 23, 42, 0.9), #0b1120);
 }
 
@@ -75,15 +75,16 @@
 .chat-bubble {
   padding: 0.75rem 1rem;
   border-radius: 16px;
-  background: rgba(15, 118, 110, 0.85);
+  background: rgba(255, 255, 255, 0.85);
+  color: #000000;
   backdrop-filter: blur(8px);
   line-height: 1.45;
   box-shadow: 0 10px 30px rgba(13, 148, 136, 0.35);
 }
 
 .chat-message-out .chat-bubble {
-  background: rgba(59, 130, 246, 0.9);
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
+  background: rgb(88, 88, 88);
+  box-shadow: 0 10px 30px rgba(74, 78, 85, 0.35);
 }
 
 .chat-timestamp {
@@ -112,7 +113,7 @@
 
 .chat-input input:focus {
   outline: none;
-  border-color: rgba(59, 130, 246, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
   background: rgba(15, 23, 42, 0.85);
 }
 
@@ -120,7 +121,7 @@
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
   border: none;
-  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  background: linear-gradient(135deg, #484848, #000000);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -129,7 +130,7 @@
 
 .chat-input button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 12px 24px rgb(76, 73, 73);
 }
 
 @media (max-width: 900px) {
