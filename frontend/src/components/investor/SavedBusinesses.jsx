@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import formatPhoneNumber from "../../utils/getPhoneNumber";
 import InvestorChatPanel from "./InvestorChatPanel";
 import {
@@ -10,16 +10,19 @@ import {
 import "./SavedBusinesses.css";
 
 const normalizeMessages = (page) => {
-  const items = page?.content || [];
-  return [...items]
+  const items = Array.isArray(page?.content) ? page.content : [];
+  return items
     .map((message) => ({
-      id: message.id,
-      senderId: message.senderId,
-      content: message.content,
-      createdAt: message.createdAt,
+      id: message?.id,
+      senderId: message?.senderId,
+      content: message?.content,
+      createdAt: message?.createdAt,
     }))
+    .filter((message) => message && message.id !== undefined && message.id !== null)
     .reverse();
 };
+
+const POLL_INTERVAL_MS = 4000;
 
 const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
   const [expandedMoreId, setExpandedMoreId] = useState(null);
@@ -29,6 +32,15 @@ const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
   const [chatStatus, setChatStatus] = useState("");
+  const isMountedRef = useRef(true);
+  const activeConversationIdRef = useRef(null);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const activeBusiness = useMemo(
     () => savedBusinesses.find((business) => business.id === activeBusinessId) || null,
@@ -44,17 +56,64 @@ const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
     }
   }, [activeBusinessId, savedBusinesses]);
 
-  const loadMessages = useCallback(async (conversationId) => {
+  const loadMessages = useCallback(async (conversationId, { silent = false } = {}) => {
+    if (!conversationId) return;
+
+    if (!silent) setChatStatus("");
+
     try {
-      setChatStatus("");
       const { data } = await getConversationMessages(conversationId);
+      if (!isMountedRef.current || activeConversationIdRef.current !== conversationId) return;
+
       const normalized = normalizeMessages(data);
-      setMessages(normalized);
-      await markConversationRead(conversationId);
+
+      let hasChanges = false;
+      setMessages((prev) => {
+        if (prev.length !== normalized.length) {
+          hasChanges = true;
+          return normalized;
+        }
+
+        for (let index = 0; index < prev.length; index += 1) {
+          const previous = prev[index];
+          const next = normalized[index];
+
+          if (!next) {
+            hasChanges = true;
+            return normalized;
+          }
+
+          if (
+            previous.id !== next.id ||
+            previous.senderId !== next.senderId ||
+            previous.content !== next.content ||
+            previous.createdAt !== next.createdAt
+          ) {
+            hasChanges = true;
+            return normalized;
+          }
+        }
+
+        return prev;
+      });
+
+      if (hasChanges) {
+        try {
+          await markConversationRead(conversationId);
+        } catch (readError) {
+          console.error("Failed to mark conversation as read", readError);
+        }
+      }
     } catch (error) {
-      console.error("Failed to load chat messages", error);
-      setMessages([]);
-      setChatStatus("Unable to load messages right now. Please try again later.");
+      if (!silent) {
+        console.error("Failed to load chat messages", error);
+        if (isMountedRef.current) {
+          setMessages([]);
+          setChatStatus("Unable to load messages right now. Please try again later.");
+        }
+      } else {
+        console.error("Failed to refresh chat messages", error);
+      }
     }
   }, []);
 
@@ -73,6 +132,7 @@ const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
 
       try {
         const { data } = await startConversation({ businessId: business.id });
+        activeConversationIdRef.current = data?.id ?? null;
         setActiveConversation(data);
         if (data?.id) {
           await loadMessages(data.id);
@@ -123,7 +183,36 @@ const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
     setActiveConversation(null);
     setMessages([]);
     setChatStatus("");
+    activeConversationIdRef.current = null;
   };
+
+  useEffect(() => {
+    activeConversationIdRef.current = activeConversation?.id ?? null;
+  }, [activeConversation?.id]);
+
+  useEffect(() => {
+    if (!activeConversation?.id) return undefined;
+
+    let cancelled = false;
+    let timeoutId = null;
+
+    const tick = async () => {
+      try {
+        await loadMessages(activeConversation.id, { silent: true });
+      } finally {
+        if (!cancelled) {
+          timeoutId = setTimeout(tick, POLL_INTERVAL_MS);
+        }
+      }
+    };
+
+    timeoutId = setTimeout(tick, POLL_INTERVAL_MS);
+
+    return () => {
+      cancelled = true;
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [activeConversation?.id, loadMessages]);
 
   if (!savedBusinesses || savedBusinesses.length === 0) {
     return (
