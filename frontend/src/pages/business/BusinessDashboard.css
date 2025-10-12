@@ -21,7 +21,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 0;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-right {
+    overflow: hidden;
 }
 
 @media (max-width: 768px) {

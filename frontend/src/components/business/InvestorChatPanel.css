@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0;
   background: #0f172a;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(15, 23, 42, 0.45);
@@ -64,6 +65,7 @@
 
 .chat-body {
   flex: 1;
+  min-height: 0;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
