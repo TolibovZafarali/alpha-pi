@@ -44,4 +44,9 @@ public class Conversation {
         createdAt = now;
         updatedAt = now;
     }
+
+    public boolean hasParticipant(Long userId) {
+        if (userId == null) return false;
+        return userId.equals(user1Id) || userId.equals(user2Id);
+    }
 }
