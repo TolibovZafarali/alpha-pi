@@ -10,7 +10,6 @@ public class AuthDtos {
         @Email
         @NotBlank
         public String email;
-
         @NotBlank
         @Size(min=8)
         public String password;

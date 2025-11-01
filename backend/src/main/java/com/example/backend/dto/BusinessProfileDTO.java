@@ -22,7 +22,7 @@ public class BusinessProfileDTO {
     private String contactName;
     private String contactEmail;
     private String contactPhone;
-    private Boolean isPublished;
+    private Boolean published;
     private Double fundingGoal;
     private Double currentRevenue;
     private LocalDate foundedDate;

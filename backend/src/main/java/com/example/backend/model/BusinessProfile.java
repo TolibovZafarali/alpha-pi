@@ -36,7 +36,9 @@ public class BusinessProfile {
     private String contactEmail;
     private String contactPhone;
 
-    private Boolean isPublished = false;
+    @Column(name = "is_published", nullable = false)
+    private boolean published = false;
+
     private Double fundingGoal;
     private Double currentRevenue;
     private LocalDate foundedDate;
