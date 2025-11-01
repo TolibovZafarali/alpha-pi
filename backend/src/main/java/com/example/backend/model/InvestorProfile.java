@@ -3,12 +3,19 @@ package com.example.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class InvestorProfile {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,101 +40,4 @@ public class InvestorProfile {
     @OneToMany(mappedBy = "investor", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<InvestorSavedBusiness> savedBusinesses;
-
-    // Constructors
-    public InvestorProfile() {
-    }
-
-    public InvestorProfile(Long id, String contactName, String contactEmail, String contactPhone, String photoUrl, String state, String investmentRange, String interests, List<InvestorSavedBusiness> savedBusinesses) {
-        this.id = id;
-        this.contactName = contactName;
-        this.contactEmail = contactEmail;
-        this.contactPhone = contactPhone;
-        this.photoUrl = photoUrl;
-        this.state = state;
-        this.investmentRange = investmentRange;
-        this.interests = interests;
-        this.savedBusinesses = savedBusinesses;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public String getContactPhone() {
-        return contactPhone;
-    }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getInvestmentRange() {
-        return investmentRange;
-    }
-
-    public void setInvestmentRange(String investmentRange) {
-        this.investmentRange = investmentRange;
-    }
-
-    public String getInterests() {
-        return interests;
-    }
-
-    public void setInterests(String interests) {
-        this.interests = interests;
-    }
-
-    public List<InvestorSavedBusiness> getSavedBusinesses() {
-        return savedBusinesses;
-    }
-
-    public void setSavedBusinesses(List<InvestorSavedBusiness> savedBusinesses) {
-        this.savedBusinesses = savedBusinesses;
-    }
 }

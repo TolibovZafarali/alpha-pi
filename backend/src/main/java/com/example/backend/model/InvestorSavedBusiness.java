@@ -1,12 +1,20 @@
 package com.example.backend.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class InvestorSavedBusiness {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,48 +29,4 @@ public class InvestorSavedBusiness {
 
     @Column(nullable = false)
     private LocalDateTime savedAt = LocalDateTime.now();
-
-    // Constructors
-    public InvestorSavedBusiness() {
-    }
-
-    public InvestorSavedBusiness(Long id, InvestorProfile investor, BusinessProfile business, LocalDateTime savedAt) {
-        this.id = id;
-        this.investor = investor;
-        this.business = business;
-        this.savedAt = savedAt;
-    }
-
-    //Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public InvestorProfile getInvestor() {
-        return investor;
-    }
-
-    public void setInvestor(InvestorProfile investor) {
-        this.investor = investor;
-    }
-
-    public BusinessProfile getBusiness() {
-        return business;
-    }
-
-    public void setBusiness(BusinessProfile business) {
-        this.business = business;
-    }
-
-    public LocalDateTime getSavedAt() {
-        return savedAt;
-    }
-
-    public void setSavedAt(LocalDateTime savedAt) {
-        this.savedAt = savedAt;
-    }
 }
