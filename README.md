@@ -67,6 +67,15 @@ Create a `.env` file in the `frontend/` directory and add:
 VITE_GNEWS_API_KEY=your_api_key
 ```
 
+For the backend, set your database connection details in `backend/src/main/resources/application.properties` (or provide
+them as environment variables) before running the service:
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/alpha_pi
+spring.datasource.username=your_mysql_user
+spring.datasource.password=your_mysql_password
+```
+
 ---
 
 ### Deployment

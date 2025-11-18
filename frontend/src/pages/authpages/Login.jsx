@@ -65,8 +65,7 @@ const Login = () => {
 
                     {error && <p className="error-message">{error}</p>}
 
-                    {/* Disabled button here temporarily */}
-                    <button type="submit" className="submit-btn" disabled={loading || !email || !password || true}>
+                    <button type="submit" className="submit-btn" disabled={loading || !email || !password}>
                         {loading ? "Logging in..." : "Log In"}
                     </button>
                 </form>
