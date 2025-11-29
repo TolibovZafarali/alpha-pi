@@ -23,7 +23,7 @@ public class BusinessProfileService {
     }
 
     public List<BusinessProfileDTO> getAllPublished() {
-        List<BusinessProfile> published = businessRepo.findAllByIsPublishedTrue();
+        List<BusinessProfile> published = businessRepo.findAllByPublishedTrue();
         return published.stream().map(businessMapper::toDto).toList();
     }
 
