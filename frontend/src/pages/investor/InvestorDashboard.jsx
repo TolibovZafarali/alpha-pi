@@ -14,6 +14,7 @@ const InvestorDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [sidebarKey, setSidebarKey] = useState(0);
   const [activeTab, setActiveTab] = useState("browse");
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Fetch my investor profile + public businesses
   useEffect(() => {
@@ -49,6 +50,12 @@ const InvestorDashboard = () => {
       setActiveTab("browse");
     }
   }, [isProfileComplete, activeTab]);
+
+  useEffect(() => {
+    if (activeTab !== "saved") {
+      setIsChatOpen(false);
+    }
+  }, [activeTab]);
 
   const handleProfileSave = async (updatedProfile) => {
     try {
@@ -98,6 +105,8 @@ const InvestorDashboard = () => {
 
   if (loading) return <div className="loading">Loading...</div>;
 
+  const dashboardRightClass = `dashboard-right${isChatOpen ? " chat-mode" : ""}`;
+
   return (
     <div className="investor-dashboard-container">
       <div className="dashboard-left">
@@ -107,12 +116,13 @@ const InvestorDashboard = () => {
           isEditable={!isProfileComplete}
         />
       </div>
-      <div className="dashboard-right">
+      <div className={dashboardRightClass}>
         <div className="tab-content">
           {activeTab === "saved" && isProfileComplete && (
             <SavedBusinesses
               savedBusinesses={profile.savedBusinesses || []}
               onRemove={handleRemove}
+              onChatViewChange={setIsChatOpen}
             />
           )}
           {activeTab === "browse" && (
@@ -123,15 +133,17 @@ const InvestorDashboard = () => {
             />
           )}
         </div>
-        <div className="sidebar-toggle-bottom">
-          <InvestorDashboardSidebar
-            key={sidebarKey}
-            isProfileComplete={isProfileComplete}
-            isEditable={!isProfileComplete}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
-        </div>
+        {!isChatOpen && (
+          <div className="sidebar-toggle-bottom">
+            <InvestorDashboardSidebar
+              key={sidebarKey}
+              isProfileComplete={isProfileComplete}
+              isEditable={!isProfileComplete}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

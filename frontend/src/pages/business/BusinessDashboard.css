@@ -29,6 +29,12 @@
     overflow: hidden;
 }
 
+.dashboard-right.chat-mode {
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
 @media (max-width: 768px) {
     .business-dashboard-container {
         flex-direction: column;

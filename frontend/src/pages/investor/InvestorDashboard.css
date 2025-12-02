@@ -30,6 +30,12 @@
     overflow: hidden;
 }
 
+.dashboard-right.chat-mode {
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
 .tab-content {
     flex: 1;
     overflow-y: auto;

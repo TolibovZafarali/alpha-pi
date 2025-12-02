@@ -41,6 +41,7 @@ const BusinessDashboardSidebar = ({
   isPublished,
   onPublishChange,
   interestedInvestors = [],
+  onChatViewChange,
 }) => {
   const [activeInvestorId, setActiveInvestorId] = useState(null);
   const [activeConversation, setActiveConversation] = useState(null);
@@ -208,6 +209,18 @@ const BusinessDashboardSidebar = ({
   }, [activeConversation?.id, fetchConversations]);
 
   const sidebarClassName = `dashboard-sidebar${activeInvestor ? " chat-active" : ""}`;
+
+  useEffect(() => {
+    if (typeof onChatViewChange === "function") {
+      onChatViewChange(!!activeInvestor);
+    }
+
+    return () => {
+      if (typeof onChatViewChange === "function") {
+        onChatViewChange(false);
+      }
+    };
+  }, [activeInvestor, onChatViewChange]);
 
   return (
     <div className={sidebarClassName}>

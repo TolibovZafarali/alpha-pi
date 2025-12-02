@@ -24,7 +24,7 @@ const normalizeMessages = (page) => {
 
 const POLL_INTERVAL_MS = 4000;
 
-const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
+const SavedBusinesses = ({ savedBusinesses, onRemove, onChatViewChange }) => {
   const [expandedMoreId, setExpandedMoreId] = useState(null);
   const [activeBusinessId, setActiveBusinessId] = useState(null);
   const [activeConversation, setActiveConversation] = useState(null);
@@ -46,6 +46,18 @@ const SavedBusinesses = ({ savedBusinesses, onRemove }) => {
     () => savedBusinesses.find((business) => business.id === activeBusinessId) || null,
     [activeBusinessId, savedBusinesses],
   );
+
+  useEffect(() => {
+    if (typeof onChatViewChange === "function") {
+      onChatViewChange(!!activeBusiness);
+    }
+
+    return () => {
+      if (typeof onChatViewChange === "function") {
+        onChatViewChange(false);
+      }
+    };
+  }, [activeBusiness, onChatViewChange]);
 
   useEffect(() => {
     if (activeBusinessId && !savedBusinesses.some((b) => b.id === activeBusinessId)) {

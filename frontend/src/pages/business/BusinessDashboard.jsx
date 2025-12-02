@@ -13,6 +13,7 @@ const BusinessDashboard = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sidebarKey, setSidebarKey] = useState(0);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Fetch my business profile + interested investors
   useEffect(() => {
@@ -64,6 +65,8 @@ const BusinessDashboard = () => {
 
   if (loading) return <div className="loading">Loading...</div>;
 
+  const dashboardRightClass = `dashboard-right${isChatOpen ? " chat-mode" : ""}`;
+
   return (
     <div className="business-dashboard-container">
       <div className="dashboard-left">
@@ -73,13 +76,14 @@ const BusinessDashboard = () => {
           isEditable={!isProfileComplete}
         />
       </div>
-      <div className="dashboard-right">
+      <div className={dashboardRightClass}>
         <BusinessDashboardSidebar
           key={sidebarKey}
           isProfileComplete={isProfileComplete}
           isPublished={isPublished}
           onPublishChange={handlePublishChange}
           interestedInvestors={profile.interestedInvestors || []}
+          onChatViewChange={setIsChatOpen}
         />
       </div>
     </div>
