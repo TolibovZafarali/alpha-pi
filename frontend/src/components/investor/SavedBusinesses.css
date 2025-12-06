@@ -17,6 +17,34 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  position: relative;
+}
+
+.chat-panel-container {
+  position: relative;
+  height: 100%;
+}
+
+.chat-floating-back {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #111;
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.chat-floating-back:hover {
+  transform: translateY(-1px);
+  background: #111;
+  color: #fff;
 }
 
 /* Webkit scrollbar */

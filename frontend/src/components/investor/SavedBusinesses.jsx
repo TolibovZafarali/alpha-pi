@@ -237,17 +237,27 @@ const SavedBusinesses = ({ savedBusinesses, onRemove, onChatViewChange }) => {
   if (activeBusiness) {
     return (
       <div className="saved-businesses chat-active">
-        <InvestorChatPanel
-          business={activeBusiness}
-          conversation={activeConversation}
-          messages={messages}
-          loadingMessages={loadingMessages}
-          sendingMessage={sendingMessage}
-          disableInput={loadingMessages || !activeConversation?.id}
-          statusMessage={chatStatus}
-          onSendMessage={handleSendMessage}
-          onBack={handleCloseChat}
-        />
+        <div className="chat-panel-container">
+          <button
+            type="button"
+            className="chat-floating-back"
+            onClick={handleCloseChat}
+            aria-label="Back to saved businesses"
+          >
+            ← Back
+          </button>
+          <InvestorChatPanel
+            business={activeBusiness}
+            conversation={activeConversation}
+            messages={messages}
+            loadingMessages={loadingMessages}
+            sendingMessage={sendingMessage}
+            disableInput={loadingMessages || !activeConversation?.id}
+            statusMessage={chatStatus}
+            onSendMessage={handleSendMessage}
+            onBack={handleCloseChat}
+          />
+        </div>
       </div>
     );
   }

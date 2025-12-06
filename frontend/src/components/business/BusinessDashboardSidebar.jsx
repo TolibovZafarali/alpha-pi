@@ -225,17 +225,27 @@ const BusinessDashboardSidebar = ({
   return (
     <div className={sidebarClassName}>
       {activeInvestor ? (
-        <InvestorChatPanel
-          investor={activeInvestor}
-          conversation={activeConversation}
-          messages={messages}
-          loadingMessages={loadingMessages}
-          sendingMessage={sendingMessage}
-          disableInput={loadingMessages || !activeConversation?.id}
-          statusMessage={conversationStatus}
-          onSendMessage={handleSendMessage}
-          onBack={handleCloseChat}
-        />
+        <div className="chat-panel-container">
+          <button
+            type="button"
+            className="chat-floating-back"
+            onClick={handleCloseChat}
+            aria-label="Back to interested investors"
+          >
+            ← Back
+          </button>
+          <InvestorChatPanel
+            investor={activeInvestor}
+            conversation={activeConversation}
+            messages={messages}
+            loadingMessages={loadingMessages}
+            sendingMessage={sendingMessage}
+            disableInput={loadingMessages || !activeConversation?.id}
+            statusMessage={conversationStatus}
+            onSendMessage={handleSendMessage}
+            onBack={handleCloseChat}
+          />
+        </div>
       ) : (
         <>
           <h2 className="sidebar-header">Interested Investors</h2>
